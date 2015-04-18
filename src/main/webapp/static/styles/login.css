@@ -1,0 +1,133 @@
+body{
+    background-color: #4A89DC;
+    background-image: url(../images/background-images/bg_img1.png);
+}
+.login-container{
+    width: 800px;
+    margin:0 auto;
+}
+.logo-bar{
+    height:60px;
+    margin-left: -60px;
+}
+.login-box{
+    height: 600px;
+}
+.login-step1{
+    width:800px;
+    min-height: 490px;
+    margin:20px auto;
+    background-color:#fAFAFA;
+}
+
+.free-title{
+background-color: #FC6E51;
+width: 183px;
+height: 45px;
+color: #fff;
+position: relative;
+top: -15px;
+margin-left: 72px;
+display: inline-block;
+text-align: center;
+font-size: 23px;
+line-height: 45px;
+}
+.login-link{
+    display: inline-block;
+margin-left: 10px;
+padding-top: 18px;
+font-size: 14px;
+}
+.link{
+    margin-left:5px;
+}
+.left-corner{
+width: 0;
+position: absolute;
+left: -15px;
+top: 0px;
+height: 0;
+border-bottom: 12px solid #87483b;
+border-left: 15px solid transparent;
+}
+.login-submit{
+    background-color: #FC6E51;
+    border:none;
+    width: 170px;
+    height: 50px;
+    color:#fff;
+    font-size: 17px;
+    font-weight:600;
+    text-align:center;
+    cursor:pointer;
+    transition:300ms all;
+    margin: 0 auto;
+    display: block;
+}
+.login-submit:hover{
+    background-color: #F0593A;
+}
+.login-form{
+   width: 640px;
+margin: 30px auto;
+padding: 50px 50px 0px 50px;
+border-top: 1px dashed #ccc;
+}
+.form-title{
+    display: inline-block;
+width: 113px;
+height: 40px;
+line-height: 40px;
+font-weight: 600;
+color: #555;
+font-family: 微软雅黑;
+
+}
+.form-content{
+    display: inline-block;
+    width: 510px;
+    height: 40px;
+    line-height: 40px;
+}
+.formtool{
+    margin-top: 40px;
+}
+.errMsg{
+    padding-left: 117px;
+    height: 20px;
+    color:#f46;
+    font-size: 12px;
+    margin: 3px 0 ;
+}
+.form-input{
+    height: 36px;
+width: 510px;
+}
+.login-item{
+    margin-top: 5px;
+}
+.star-warn{
+    color: red;
+margin-right: 7px;
+font-size: 16px;
+font-weight: 600;
+}
+.remeber-pass{
+    display:inline-block;
+    font-size: 13px;
+    margin-left: 113px;
+}
+.find-pass{
+    display: inline-block;
+    float: right;
+    font-size: 13px;
+}
+.find-pass>a{
+    text-decoration: none;
+    color:#4A89DC;
+    margin-left: 10px;
+}
+.find-pass>a:hover{
+    color:rgba(74, 137, 220, 0.7);
+}

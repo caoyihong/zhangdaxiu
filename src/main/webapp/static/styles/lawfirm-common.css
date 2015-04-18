@@ -1,0 +1,356 @@
+/*中介机构头部*/
+.lawfirm-top{
+   background-color: #F9F9F9;
+   border-bottom: 2px solid #ccc;
+   padding-top: 5px;
+}
+.lawfirm-nav{
+    height: 30px;
+width: 980px;
+margin: 0 auto;
+}
+.lawfirm-title{
+    margin: 0 auto;
+width: 980px;
+}
+.small-nav>li{
+    float: left;
+}
+.small-nav>li+li:before{
+    content: ">";
+    margin: 0 3px;
+}
+.lawfirm-title-left{
+    display: inline-block;
+    width: 710px;
+    float:left;
+}
+.lawfirm-title-right{
+    display: inline-block;
+    width: 270px;
+    height: 123px;
+}
+.lawfirm-name{
+    font-size: 22px;
+}
+.lawfirm-name-dis{
+   background-color: #ffe1d1;
+color: #f39700;
+display: inline-block;
+max-width: 680px;
+padding: 3px 8px;
+font-size: 15px;
+margin-top: 6px;
+}
+.lawfirm-tab-ul>li{
+  display: inline-block;
+width: 125px;
+height: 46px;
+margin-bottom: -2px;
+float: left;
+}
+.lawfirm-tab-ul>li>a{
+    display: block;
+    text-align: center;
+    line-height: 45px;
+    font-size: 18px;
+color: #000;
+transition:all 300ms;
+}
+.lawfirm-tab-ul>li>a:hover{
+    color:#377BEE;
+}
+.lawfirm-tab-active{
+    background-color: #fff;
+border-left: 1px solid #ccc;
+border-right: 1px solid #ccc;
+}
+.lawfirm-tab-active>a{
+    color:#377bee ! important;
+}
+.lawfirm-tab-active>div{
+     background-color: #377BEE;
+     height: 5px;
+     margin-left: -1px;
+margin-right: -1px;
+}
+
+.lawfirm-grade>*{
+    float:left;
+}
+.lawfirm-grade>span{
+    margin: 0 10px;
+}
+.lawfirm-level-ul{
+    color: #FBC660;
+font-size: 19px;
+}
+.grade{
+    color: #FBC660;
+}
+.lawfirm-level-ul>li{
+    float:left;
+}
+.lawfirm-tab{
+    margin-top: 20px;
+}
+.lawfirm-tab-wait{
+    height: 5px;
+}
+.lawfirm-title-right-box{
+    height: 123px;
+border-left: 1px dashed #ccc;
+border-right: 1px dashed #ccc;
+padding: 28px 10px 0 54px;
+}
+/*中介机构中间部分*/
+.lawfirm-middle-left{
+    display: inline-block;
+    float: left;
+    width: 687px;
+    padding-top: 35px;
+
+}
+.lawfirm-middle-right{
+    display: inline-block;
+    float: left;
+    width: 268px;
+    padding-top: 35px;
+    margin-left: 25px;
+}
+/*中间右边*/
+/*正在咨询*/
+.consulting-box{
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+.consult-item-left{
+    width: 60px;
+    float: left;
+    height: 75px;
+}
+.consult-item-left>a{
+    display: table-cell;
+    width: 45px;
+    height: 45px;
+    vertical-align: middle;
+    text-align: center;
+}
+.consult-item-left>a>img{
+    max-width: 45px;
+    max-height: 45px;
+    border-radius: 2px;
+}
+.consult-item-right{
+    width: 170px;
+    float: left;
+    height: 75px;
+}
+.consult-content{
+    height: 55px;
+line-height: 18px;
+font-size: 13px;
+}
+.consult-content>a{
+    color: #000;
+}
+.consult-content>a:hover{
+    color: #397CEE;
+}
+.consult-time{
+    font-size: 12px;
+padding-top: 5px;
+color: #aaa;
+}
+.consult-item{
+    margin: 15px 0 20px 0;
+}
+/*事务所内搜索*/
+.search-lawfirmbox{
+     padding: 15px;
+    border: 1px solid #ccc;
+    margin-top: 35px;
+   background: url(/showimg?url=/images/background-images/searchinlawfirm.png) no-repeat -1px -1px;
+}
+.search-law-btn{
+    width: 64px;
+height: 40px;
+background-color: #73B52D;
+border: none;
+color: #FFFFFF;
+font-family: "Microsoft Yahei";
+font-size: 18px;
+margin-left: 12px;
+}
+.search-law{
+    position: relative;
+margin-top: 13px;
+}
+.law-icon{
+   position: absolute;
+font-size: 21px;
+color: #ccc;
+left: 4px;
+top: 5px;
+}
+.search-law-input{
+  padding-left: 30px;
+display: inline-block;
+float: left;
+width: 160px;
+height: 40px;
+border: 2px solid #73B52D;
+}
+/*其他分部*/
+.other-law-item{
+    margin-top: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+}
+.other-law-item:last-child{
+    border-bottom:none;
+}
+.other-lawfirmbox{
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin-top: 35px;
+}
+.other-law-img>a{
+    display: table-cell;
+    width: 230px;
+    height: 117px;
+    vertical-align: middle;
+    text-align: center;
+}
+.other-law-img>a>img{
+    max-width: 230px;
+    max-height: 117px;
+    border-radius: 1px;
+}
+.other-law-level-ul {
+    float: left;
+    margin-right: 10px;
+}
+.other-law-level-ul >li{
+    float: left;
+}
+.other-law-title{
+    font-size: 16px;
+}
+.other-law-level{
+   color: #FBC660;
+margin-bottom: 3px;
+font-size: 17px;
+}
+.other-law-level>span{
+    line-height: 27px;
+}
+.other-law-phone{
+    padding-top: 5px;
+}
+.other-law-phone-name{
+    width: 40px;
+    float: left;
+    height: 22px;
+}
+.other-law-phone-content{
+width: 190px;
+float: left;
+height: 22px;
+}
+.other-law-address-name{
+width: 40px;
+height: 40px;
+float: left;
+}
+.other-law-address-content{
+width: 190px;
+float: left;
+height: 40px
+}
+/*常见问题*/
+.common-questionbox{
+  padding: 15px;
+    border: 1px solid #ccc;
+    margin-top: 35px;
+}
+.common-quest-item>span{
+float: left;
+font-size: 19px;
+color: #aaa;
+margin-right: 10px;
+}
+.common-quest-item>div{
+    width: 190px;
+    height: 23px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: left;
+}
+.common-quest-item>div>a{
+    color:#000;
+    font-size: 15px;
+}
+.common-quest-item>div>a:hover{
+    color:#397CEE;
+}
+.common-quest-item {
+    margin: 5px 0;
+    line-height: 26px;
+}
+/*广告图片*/
+.advert-box{
+    margin-top: 35px;
+}
+.advert-box>a{
+      display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 270px;
+}
+.advert-box>a>img{
+    max-width: 270px;
+}
+/*事务所其他律师*/
+.other-lawerbox{
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 35px;
+}
+.other-lawer-title{
+    font-size: 16px;
+}
+.other-lawer-title>span{
+    margin-left: 10px;
+}
+.other-lawer-item{
+    padding: 10px 0 ;
+    border-bottom: 1px dashed #ccc;
+}
+.other-lawer-item:last-child{
+      border-bottom: none;
+}
+/*小框标题*/
+.box-title{
+    border-bottom: 1px solid #ccc;
+    height: 33px;
+    margin-bottom: 3px;
+}
+.box-title>span{
+   font-size: 18px;
+color: #73b52d;
+font-weight: 600;
+margin-top: 0px;
+position: relative;
+top: 3px;
+margin-left: 5px;
+}
+.box-title>a{
+    float: right;
+font-size: 13px;
+color: #397CEE;
+position: relative;
+top: 5px;
+}
+/**/

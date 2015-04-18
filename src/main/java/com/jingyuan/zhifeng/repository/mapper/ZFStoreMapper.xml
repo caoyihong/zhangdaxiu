@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingyuan.zhifeng.repository.ZFStoreMapper">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<resultMap id="BaseResultMap" type="com.jingyuan.zhifeng.entity.ZFStore">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="userid" property="userid" jdbcType="INTEGER" />
+		<result column="anencyid" property="anencyid" jdbcType="INTEGER" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+		<result column="enabled" property="enabled" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, type, userid, anencyid, createtime, updatetime, enabled
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from zf_store
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from zf_store
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jingyuan.zhifeng.entity.ZFStore">
+		insert into zf_store (id, type, userid,
+		anencyid, createtime, updatetime,
+		enabled)
+		values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+		#{userid,jdbcType=INTEGER},
+		#{anencyid,jdbcType=INTEGER}, now(), now(),
+		#{enabled,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jingyuan.zhifeng.entity.ZFStore">
+		insert into zf_store
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="anencyid != null">
+				anencyid,
+			</if>
+			createtime,
+			updatetime,
+			<if test="enabled != null">
+				enabled,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=INTEGER},
+			</if>
+			<if test="anencyid != null">
+				#{anencyid,jdbcType=INTEGER},
+			</if>
+			now(),
+			now(),
+			<if test="enabled != null">
+				#{enabled,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jingyuan.zhifeng.entity.ZFStore">
+		update zf_store
+		<set>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				userid = #{userid,jdbcType=INTEGER},
+			</if>
+			<if test="anencyid != null">
+				anencyid = #{anencyid,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="enabled != null">
+				enabled = #{enabled,jdbcType=TINYINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jingyuan.zhifeng.entity.ZFStore">
+		update zf_store
+		set type = #{type,jdbcType=INTEGER},
+		userid = #{userid,jdbcType=INTEGER},
+		anencyid = #{anencyid,jdbcType=INTEGER},
+		createtime = #{createtime,jdbcType=TIMESTAMP},
+		updatetime = #{updatetime,jdbcType=TIMESTAMP},
+		enabled = #{enabled,jdbcType=TINYINT}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByUserIdAndAgencyIdAndType" resultMap="BaseResultMap">
+		select * from zf_store z where z.type = #{0} and z.userid = #{1} and z.anencyid = #{2} and z.enabled =0
+	</select>
+	<select id="selectByUserIdAndType" resultMap="BaseResultMap">
+		select * from zf_store s where s.userid = #{0} and s.type = #{1} and s.enabled =0
+	</select>
+	<select id="selectResultMap" resultType="map">
+		<!-- type=0||2表示关注的为中介机构，返回中介机构list -->
+		<if test="param2 ==0 or param2==2">
+			SELECT * from zf_agency a 
+		</if>
+		<!-- type=1||3表示关注的为中介机构从业人员，返回中介机构从业人员list -->
+		<if test="param2 == 1 or param2 == 3">
+			SELECT * from zf_agencyemployee a 
+		</if>
+		 WHERE a.id IN (SELECT s.anencyid FROM zf_store s WHERE s.userid = #{0} AND s.type = #{1} AND s.enabled = 0)
+	</select>
+	<select id="searchResultMap" resultType="map">
+		<!-- type=0||2表示关注的为中介机构，返回中介机构list -->
+		<if test="param2 ==0 or param2==2">
+			SELECT a.id, a.head, a.`name`, a.`status`, a.phone, concat(ad.province,concat(ad.city,ad.district)) as address from zf_agency a , 
+			zf_address ad WHERE (a.id IN (SELECT s.anencyid FROM zf_store s WHERE s.userid = #{0} AND s.type = #{1} AND s.enabled = 0)) 
+				AND ad.addressid = a.address
+			 <if test="param3!=null and param3!=''">
+			 	AND a.`name` like concat('%',#{2},'%')
+			 </if>
+		 	<if test="param5!=null and param5!=''">
+		 		AND a.address IN (SELECT addr.addressid FROM zf_address addr WHERE addr.province=#{4}
+		 			<if test="param6!=null and param6!=''">
+		 				AND addr.city=#{5}
+		 			</if>
+		 			<if test="param7!=null and param7!=''">
+		 				AND addr.district=#{6}
+		 			</if>
+		 		)
+		 	</if>
+		</if>
+	<!-- Integer userId, Integer type, String name, String agencyname, String province, String city, String district -->
+		<!-- type=1||3表示关注的为中介机构从业人员，返回中介机构从业人员list -->
+		<if test="param2 == 1 or param2 == 3">
+			SELECT a.id, a.head, a.agencyid, a.`name`, a.`status`, agency.`name` as agencyname  from zf_agencyemployee a, zf_agency agency  
+		 	WHERE a.id IN (SELECT s.anencyid FROM zf_store s WHERE s.userid = #{0} AND s.type = #{1} AND s.enabled = 0)
+		 	<if test="param3!=null and param3!=''">
+			 	AND a.`name` like concat('%',#{2},'%')
+			</if>
+			<if test="(param4!=null and param4!='') or (param5!=null and param5!='')">
+				<if test="param4!=null and param4!=''">
+					AND agency.`name` LIKE CONCAT('%',#{3},'%') 
+				</if>
+				<if test="param5!=null and param5!=''">
+			 		AND agency.address IN (SELECT addr.addressid FROM zf_address addr WHERE addr.province=#{4}
+			 			<if test="param6!=null and param6!=''">
+			 				AND addr.city=#{5}
+			 			</if>
+			 			<if test="param7!=null and param7!=''">
+			 				AND addr.district=#{6}
+			 			</if>
+			 		)
+		 		</if>
+			</if>
+		</if>
+	</select>
+</mapper>

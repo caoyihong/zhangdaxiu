@@ -1,0 +1,82 @@
+html,body{
+	transition:height 1s;
+	-webkit-transition:height 1s;
+	-moz-transition:height 1s;
+	-o-transition:height 1s;
+}
+.other-lawer-replay-box .more{
+	width:100%;
+	height:40px;
+	font-size:16px;
+	line-height:40px;
+	background:#eee;
+	text-align:center;
+	cursor:pointer;
+}
+
+.self-reply{
+	background:#eee;
+	padding:20px 5px;
+	border:none;
+	display: block;
+}
+.self-reply .request-exper-item-left {
+	width: 105px;
+}
+.self-reply .request-exper-item-right {
+	width: 540px;
+}
+.perfect-your-aply{
+	width: 120px;
+	height: 40px;
+	background-color: #73b52d;
+	color: #fff;
+	font-weight: 600;
+	line-height: 40px;
+	text-align: center;
+	margin-top: 20px;
+	cursor: pointer;
+	transition: all 200ms;
+}
+.perfect-your-aply:hover {
+	background-color: rgba(115, 181, 45, 0.8);
+}
+.given-service-action{
+	margin-top:10px;
+}
+.reply-content {
+	border: none;
+	width: 524px;
+	min-height: 75px;
+	padding: 10px;
+	resize: none;
+	overflow-y: hidden;
+	color: #777;
+}
+.lawer-custom-replybox-top{
+	width:526px;
+}
+.lawer-custom-replybox-bottom {
+	width:524px;
+}
+.lawer-custom-replybox{
+	width:526px;
+}
+.lawer-custom-replybox-top{
+	height:auto;
+}
+/*****************律师看到的评价框***************/
+.judge-service{
+	border: 1px solid #ccc;
+	margin-top: 25px;
+	padding: 15px;
+}
+.exper-item-rbot{
+	margin-top:5px;
+}
+.rmid-disc {
+	line-height:26px;
+}
+.rmid-content-level {
+	line-height: 26px;
+}

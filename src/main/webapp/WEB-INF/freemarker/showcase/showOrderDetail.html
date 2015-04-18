@@ -1,0 +1,656 @@
+<#-- 全局变量 --> <#global ctx="${(ctp.contextPath)!''}">
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset =UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=10"> 
+<title>中介_服务对话</title>
+<link href="${ctx}/static/styles/common.css" rel="stylesheet" type="text/css" /> 
+<link href="${ctx}/static/js/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/> 
+<link href="${ctx}/static/styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css"/>
+<link href="${ctx}/static/styles/navbar.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/static/styles/lawfirm.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/static/styles/lawfirm-common.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/static/styles/lawfirm_norepeat.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/static/styles/navbar_IE8.css" rel="stylesheet" type="text/css" />
+<script src="${ctx}/static/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/dist/js/bootstrap.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/special-efficacy.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/function.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/util.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/jquery.luara.0.0.1.min.js"></script>
+<script src="${ctx}/static/js/bootstrap-paginator.min.js"></script>
+<script src="${ctx}/static/js/jquery.datetimepicker.js"></script>
+<script src="${ctx}/static/js/lawfirm_norepeat.js"></script>
+</head>
+<body>
+<@h.head />
+        <br>
+    <div class="lawfirm-middle container clearfix">  
+       <div class="lawfirm-middle-left" style="padding-top: 5px ! important;">
+           <input type="hidden" id="formToken" name="formToken" value="${formToken}"/>
+            <div class="succesexper-box" style="margin-top:0 ! important;">
+                <div class="successexper-box-inner">
+					<div class="box-title">
+                        <img src="/showimg?url=images/icon-images/index.png" alt=""><span>需求详情</span><a class="nxt-item" href="">下一条></a> <a class="pre-item" href=""><上一条</a>
+                    </div>
+                    <div class="successexper-item-box">
+                        <div class="request-detail clearfix">
+                              <div class="request-detail-item-left">
+                                <a href="" class="exper-lawer-photo"><img src="/showimg?url=${need.user.head}" alt=""></a>
+                                <a href="" class="exper-lawer-name">${need.user.name}</a>
+                             </div>
+                            <div class="request-detail-item-right">
+                                <div class="exper-detail-question">
+                                	<#if order.status ==1>
+                                    	<img src="/showimg?url=images/icon-images/doing1.png"  class="doing-img" alt="">
+                                    <#else>
+                                    	<img src="/showimg?url=images/icon-images/doing4.png"  class="doing-img" alt="">
+                                    </#if>
+                                    <div class="exper-detail-top"></div>
+                                    <div class="exper-detail-middle">
+                                        <div class="exper-detail-question-time">
+                                        	提问时间&nbsp;:
+                                        	<span>${need.createtime?string("yyyy-MM-dd HH:mm:ss")}</span>  
+                                        	<div class="howmuch">
+                                        		<img class="howmuch-img1" src="/showimg?url=images/icon-images/money1.png" alt="">
+                                        		悬赏金额：<div class="howmuch-value">${need.price}</div>
+                                        		<span class="money-unit">万元</span>
+                                        		<img class="howmuch-img2" src="/showimg?url=images/icon-images/money2.png" alt="">
+                                       		</div>
+                                   		</div>
+                                        <div class="exper-detail-question-title clearfix">
+                                        	<div class="iconfont icon-wenhao"></div>
+                                        	<div class="question-title">${need.title}</div>
+                                        </div>
+                                        <div class="exper-detail-question-intro">
+                                          	${need.detail}
+                                        </div>
+                                        <#if identity == 0>
+										<div class="toggle-bar clearfix">
+											<div class="toggle-modi"></div>
+											<#if order.status != 2>
+												<div class="toggle-box" onclick = "$('.modi-judge-box').show();slide_Down('.modi-judge-box');">
+				                                   	确认完成
+												</div>
+											</#if>
+										</div>
+										</#if>
+                                    </div>
+	                                <div class="modi-exper-detail-bottom"> 
+	                                    
+									</div>
+                                </div>
+                              
+                            </div>
+                        </div>
+                        
+                        
+                        <div>
+                        	<#if identity != -1>
+                        		<#if apply??>
+		                        	<div class="talk-item-reply  clearfix">
+		                              <div class="talk-exper-item-left">
+		                                  <div>
+		                                      <a href="/agency/${apply.agencyemployee.agencyid}/agencye/${apply.agencyemployee.id}" class="exper-lawer-photo">
+		                                       <img src="/showimg?url=${apply.agencyemployee.head}" alt="">
+		                                       <a href="/agency/${apply.agencyemployee.agencyid}/agencye/${apply.agencyemployee.id}" class="exper-lawer-name">${apply.agencyemployee.name}</a>
+		                                   		<#if apply.agencyemployee.status == 0>
+													<div class="notIdentify">未实名认证</div>
+												<#elseif apply.agencyemployee.status == 2>
+					                                <div class="isIdentify">已实名认证</div>
+				                                </#if>
+		                                        <div class="lawer-level">
+				                                	<span>
+					                                <#if apply.agencyemployee.identity == 1>
+					                                	律师
+					                                <#elseif apply.agencyemployee.identity == 2>
+					                                	评估师
+					                                <#elseif apply.agencyemployee.identity == 3>
+					                                	司法鉴定人
+					                                <#elseif apply.agencyemployee.identity == 4>
+					                                	商标代理人
+					                                <#elseif apply.agencyemployee.identity == 5>
+					                                	专利代理
+					                                </#if>
+					                               </span>
+				                               </div>
+		                                      </a>
+		                                  </div>
+		                              </div>
+		                              <div class="talk-exper-item-right word-line-height">
+		                                  <div class="talk-lcorner">
+		                                      <img src="/showimg?url=images/icon-images/lcorner.png" alt="">
+		                                  </div>
+		                                  <div class="reply-say">
+										${apply.content}		                                           
+		                                  </div>
+		                                  <div class="reply-time">
+		                                      <span>回复时间:</span><span><script>document.write(dateFormat_Msg("${apply.createtime?string('yyyy-MM-dd HH:mm:ss')}"))</script></span>
+		                                  </div>
+		                              </div>
+		                          </div>
+	                          </#if>
+							<#if (messages?size>0)>
+								<#list messages as msg>
+                        			<div class="talk-item-reply  clearfix">
+		                                <div class="talk-exper-item-left">
+		                                    <div>
+		                                        <#if msg.type == 0>
+			                                        <a href="" class="exper-lawer-photo">
+			                                        <img src="/showimg?url=${msg.user.head}" alt="">
+			                                        <a href="" class="exper-lawer-name">${msg.user.name}</a>
+			                                    <#elseif msg.type == 1>
+			                                    	<a href="/agency/${msg.agencyemployee.agencyid}/agencye/${msg.agencyemployee.id}" class="exper-lawer-photo">
+			                                    	<img src="/showimg?url=${msg.agencyemployee.head}" alt="">
+			                                    	<a href="/agency/${msg.agencyemployee.agencyid}/agencye/${msg.agencyemployee.id}" class="exper-lawer-name">${msg.agencyemployee.name}</a>
+			                                    		<#if msg.agencyemployee.status == 0>
+															<div class="notIdentify">未实名认证</div>
+														<#elseif msg.agencyemployee.status == 2>
+							                                <div class="isIdentify">已实名认证</div>
+						                                </#if>
+			                                         <div class="lawer-level">
+					                                	<span>
+						                                <#if msg.agencyemployee.identity == 1>
+						                                	律师
+						                                <#elseif msg.agencyemployee.identity == 2>
+						                                	评估师
+						                                <#elseif msg.agencyemployee.identity == 3>
+						                                	司法鉴定人
+						                                <#elseif msg.agencyemployee.identity == 4>
+						                                	商标代理人
+						                                <#elseif msg.agencyemployee.identity == 5>
+						                                	专利代理
+						                                </#if>
+						                               </span>
+					                               </div>
+		                                        </#if>
+		                                        </a>
+		                                    </div>
+		                                </div>
+		                                <div class="talk-exper-item-right word-line-height">
+		                                    <div class="talk-lcorner">
+		                                        <img src="/showimg?url=images/icon-images/lcorner.png" alt="">
+		                                    </div>
+		                                    <div class="reply-say">
+												${msg.content}		                                           
+		                                    </div>
+		                                    <div class="reply-time">
+		                                        <span>回复时间:</span><span><script>document.write(dateFormat_Msg("${msg.createtime?string('yyyy-MM-dd HH:mm:ss')}"))</script></span>
+		                                    </div>
+		                                </div>
+		                            </div>
+                        
+		                       	</#list>
+	                            </#if>
+		                       	<#elseif identity == -1>
+                        		<div class="lock-area">
+	                                <span class="iconfont icon-lock"></span>
+	                                <span>此条信息只有发布者与被接受的中介机构可见</span>
+	                            </div>
+		               		</#if>
+                        	<#if order.status != 2 && identity != -1>
+                        		<div class="talk-item-reply-box mgrt clearfix">
+	                              <div class="talk-exper-item-left">
+		                                    <div>
+				                        		<#if identity == 0>
+			                                        <a href="" class="exper-lawer-photo"><img src="/showimg?url=${user.head}" alt=""></a>
+			                                        <a href="" class="exper-lawer-name">${user.name}</a>
+				                        		<#elseif identity == 2>
+				                        			<a href="/agency/${user.agencyid}/agencye/${user.id}" class="exper-lawer-photo"><img src="/showimg?url=${user.head}" alt=""></a>
+													<a href="/agency/${user.agencyid}/agencye/${user.id}" class="exper-lawer-name">${user.name}</a>
+													<#if user.status == 0>
+														<div class="notIdentify">未实名认证</div>
+													<#elseif user.status == 2>
+						                                <div class="isIdentify">已实名认证</div>
+					                                </#if>
+					                                <div class="lawer-level">
+						                                	<span>
+							                                <#if user.identity == 1>
+							                                	律师
+							                                <#elseif user.identity == 2>
+							                                	评估师
+							                                <#elseif user.identity == 3>
+							                                	司法鉴定人
+							                                <#elseif user.identity == 4>
+							                                	商标代理人
+							                                <#elseif user.identity == 5>
+							                                	专利代理
+							                                </#if>
+							                               </span>
+						                               </div>
+				                        		</#if>
+		                                    </div>
+		                                </div>
+	                                <div class="modi-talk-exper-item-right">
+		                                 <div class="talk-lcorner">
+		                                        <img src="/showimg?url=images/icon-images/lcorner.png" alt="">
+		                                 </div>
+	                                     <div class="modii-lawer-custom-replybox">
+	                                       <div class="modi-lawer-custom-replybox-top">                                       
+	                                        <textarea name="content" id="content" placeholder="请输入回复内容" class="modi-reply-content" onpropertychange="this.style.height=this.scrollHeight + 'px'" oninput="this.style.height=this.scrollHeight + 'px'"></textarea>
+	                                       </div>
+	                                       <div class="modi-lawer-custom-replybox-bottom">
+	                                           <div class="words-left">您还可以输入<span>1000</span>个文字.</div>
+	                                           <div class="reply-send-btn" onclick="sendMsg()"><img src="/showimg?url=images/icon-images/enterreply.png" alt="">确定发送</div>
+	                                       </div>
+	                                   </div>
+	                                </div>
+	                            </div>
+	                           
+                        	</#if>
+                        
+                            
+                        </div>
+                    </div>
+                 
+                </div>
+            </div>
+            
+            <#if order.status != 2 && identity == 0>
+	      		<div class="modi-judge-box" style="display:none;">
+	      			<div class="modi-judge-box-inner">
+	      				<div class="box-title">
+	                            <img src="/showimg?url=images/icon-images/index.png" alt=""><span>我的评价</span> 
+	                    </div>
+	                    <div class="judge-box">
+				           <div class="judge-box-inner">		  
+				               <div class="judge-body">
+				                   <table class="judge-table">
+				                       <tr><td class="judge-name ">服务态度:</td><td class="judge-content label-check"><label><div class="model-checkbox servicemanner" check="false" value="较差"><div class="model-checkbox-inner"></div></div>较差</label><label><div class="model-checkbox servicemanner" check="true" value="一般"><div class="model-checkbox-inner"></div></div>一般</label><label ><div class="model-checkbox servicemanner" check="false" value="满意"><div class="model-checkbox-inner"></div></div>满意</label></td></tr> 
+				                       <tr><td class="judge-name" >服务时间:</td><td class="judge-content label-check"><label for="check_d"><div class="model-checkbox servicespeed" check="false" value="较慢"><div class="model-checkbox-inner"></div></div>较慢</label><label for="check_e"><div class="model-checkbox servicespeed" check="true" value="一般"><div class="model-checkbox-inner"></div></div>一般</label><label for="check_f"><div class="model-checkbox servicespeed" check="false" value="很快"><div class="model-checkbox-inner"></div></div>很快</label></td></tr>
+				                       <tr><td class="judge-name">服务评分:</td><td class="judge-content"> <ul class="judge-level-ul clearfix">
+				                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li>
+				                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li></li>
+				                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li></li>
+				                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li></li>
+				                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li></li>
+				                            </ul><span class="realGrade"><span class="finalgrade">0</span>分</span><span class="gradeTip">(满分5分)</span></td></tr>
+				                   </table>
+				               </div>
+				               <div class="judge-footer">
+				                   <div>评论内容:</div>
+				                   <div>
+				                       
+				                       <div class="judge-custom-replybox" >
+				                           <div class="judge-custom-replybox-top">                                       
+				                            <textarea name="" id="" placeholder="请输入回复内容" class="judge-txt" ></textarea>
+				                           </div>
+				                           <div class="judge-custom-replybox-bottom">
+				                               <div class="words-summ"><span class="hasword">0</span>/<span>1000</span></div>
+				                               <div class="reply-send-btn" onclick="commit_judge('${order.id}')"><img src="/showimg?url=images/icon-images/enterreply.png" alt="" >确认完成</div>
+				                           </div>
+				                       </div>
+				                   </div>
+				               </div>
+				           </div>
+	       				</div>
+	      			</div>
+	      		</div>
+      		</#if>
+            
+            <#if order.status == 2>
+				<div class="judge-service">
+	                <div class="box-title">
+	                    <img src="/showimg?url=images/icon-images/index.png" alt=""><span>用户评价</span>
+	                </div>
+	                <div class="talk-item-reply-box mgrt clearfix">
+	                    <div class="talk-reply-left">
+	                        <div>
+	                            <a href="" class="exper-lawer-photo"><img src="/showimg?url=${order.normalUser.head}" alt=""></a>
+	                            <a href="" class="exper-lawer-name">${order.normalUser.name}</a>
+	                        </div>
+	                    </div>
+	                    <div class="talk-reply-right">
+	                        <div class="exper-item-rtop-level clearfix">
+	                            <div class="questype">咨询类别:<span class="rtop-content">${order.type}</span></div>
+	                            <div class="lawerservice-level">律师服务:<span class="rtop-content-y"><#if order.servicerank??> ${order.servicerank} <#else> 未填写 </#if></span></div>
+	                            <div class="servicetime">服务时间:<span class="rtop-content-y"><#if order.timerank??> ${order.timerank} <#else> 未填写 </#if></span></div>
+	                        </div>
+	                        <div class="exper-item-rmid clearfix">
+	                            <div class="rmid-disc">评论:</div>
+	                            <div class="rmid-content-level" fulltext="<#if order.judge??> ${order.judge} <#else> 未填写 </#if>">
+	                            </div>
+	                        </div>
+	                        <div class="exper-item-rbot clearfix">
+	                            <div class="exper-time">${order.finishtime?string("yyyy-MM-dd HH:mm:ss")}</div>
+	                            <div class="exper-explain">
+	                                <span>(咨询后当天)</span> 
+	                                <span>分享的法务经验</span>
+	                            </div>
+	                            <div class="exer-servicelawer">服务律师:<a href="/agency/${order.agencye.agencyid}/agencye/${order.agencye.id}">${order.agencye.name}</a>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	                       
+			</#if>
+			<#if apply??>
+            <div class="other-lawer-replay-box request-list-box">
+                <div class="other-lawer-reply-box-inner">
+                       <div class="box-title request-list-title">
+                            <img src="/showimg?url=images/icon-images/index.png" alt=""><span>申请列表</span> <span class='total-reply-count'>(共<span>${applies?size}</span>条)</span>
+                            <a href="javascript:void(0)" class="openlist">[展开]</a>
+                        </div>
+                        <div class="list-box put-away">
+                        <div class="exper-item-reply mgrt clearfix ">
+                           <div class="modi-request-exper-item-right word-line-height">
+                           	<img  class="succ_rep" src="/showimg?url=images/icon-images/succ_rep.png"/>
+                           	   <div class="modi-request-exper-item-left">
+                                <a href="/agency/${apply.agencyemployee.agencyid}/agencye/${apply.agencyemployee.id}" class="modi-exper-lawer-photo"><img src="/showimg?url=${apply.agencyemployee.head}" alt=""></a>
+                                <a href="/agency/${apply.agencyemployee.agencyid}/agencye/${apply.agencyemployee.id}" class="modi-exper-lawer-name">${apply.agencyemployee.name}</a>
+                                <#if apply.agencyemployee.status == 0>
+                                	<span class="notIdentify-img"></span>
+									<div class="notIdentify">未实名认证</div>
+								<#elseif apply.agencyemployee.status == 2>
+									<span class="isIdentify-img"></span>
+	                                <div class="isIdentify">已实名认证</div>
+                                </#if>
+                                <div class="modi-lawer-level">
+                                	<span>
+		                                <#if apply.agencyemployee.identity == 1>
+		                                	律师
+		                                <#elseif apply.agencyemployee.identity == 2>
+		                                	评估师
+		                                <#elseif apply.agencyemployee.identity == 3>
+		                                	司法鉴定人
+		                                <#elseif apply.agencyemployee.identity == 4>
+		                                	商标代理人
+		                                <#elseif apply.agencyemployee.identity == 5>
+		                                	专利代理
+		                                </#if>
+	                               </span>
+                               </div>
+                                <span class="modi-reply-time">
+                                   <span>回复时间:</span><span>${apply.createtime?string("yyyy-MM-dd HH:mm:ss")}</span>
+                               </span>
+                            </div>
+                               <div class="request-exper-item-right-content-suc">
+                               	${apply.content}
+                               </div>
+                              
+                           </div>
+                        </div>
+                        <#if (applies?size>0)>
+	                		<#list applies as apply>
+	                			<#if apply.employeeid != order.agencyemployeeid>
+	                				<div class="exper-item-reply mgrt clearfix">
+		                            <div class="modi-request-exper-item-right word-line-height">
+		                            	 <div class="modi-request-exper-item-left">
+		                                <a href="/agency/${apply.agencyemployee.agencyid}/agencye/${apply.agencyemployee.id}" class="modi-exper-lawer-photo"><img src="/showimg?url=${apply.agencyemployee.head}" alt=""></a>
+		                                <a href="/agency/${apply.agencyemployee.agencyid}/agencye/${apply.agencyemployee.id}" class="modi-exper-lawer-name">${apply.agencyemployee.name}</a>
+		                                <#if apply.agencyemployee.status == 0>
+		                                	<span class="notIdentify-img"></span>
+											<div class="notIdentify">未实名认证</div>
+										<#elseif apply.agencyemployee.status == 2>
+											<span class="isIdentify-img"></span>
+			                                <div class="isIdentify">已实名认证</div>
+		                                </#if>
+		                                <div class="modi-lawer-level">
+		                                	<span>
+				                                <#if apply.agencyemployee.identity == 1>
+				                                	律师
+				                                <#elseif apply.agencyemployee.identity == 2>
+				                                	评估师
+				                                <#elseif apply.agencyemployee.identity == 3>
+				                                	司法鉴定人
+				                                <#elseif apply.agencyemployee.identity == 4>
+				                                	商标代理人
+				                                <#elseif apply.agencyemployee.identity == 5>
+				                                	专利代理
+				                                </#if>
+			                               </span>
+		                               </div>
+		                               <span class="modi-reply-time">
+		                                    <span>回复时间:</span><span>${apply.createtime?string("yyyy-MM-dd HH:mm:ss")}</span>
+		                                </span>
+		                            </div>
+		                                <div class="request-exper-item-right-content">
+		                                	${apply.content}
+		                                </div>
+		                                
+		                            </div>
+		                        </div>
+	                			</#if>
+	                		</#list>
+	               		</#if>
+                        
+                        
+                       
+                        </div>
+                </div>
+            </div>
+            </#if>
+       </div>
+        <div class="lawfirm-middle-right"  style="padding-top: 5px ! important;">
+            <div class="common-questionbox questionbox-margin">
+                <div class="common-question">
+                    <div class="box-title">
+                        <img src="/showimg?url=images/icon-images/heart.png" alt=""><span>成功案例</span><a href="" target="_blank">更多></a>
+                    </div>
+                    <div class="common-quest-box">
+                        <div class="common-quest-item clearfix"><span class="iconfont iconfont-msg icon-quest"></span><div><a href="" target="_blank"><script>document.write(cutString("标题文字限制15个汉字?",15))</script></a></div></div>
+                        <div class="common-quest-item clearfix"><span class="iconfont iconfont-msg icon-quest"></span><div><a href="" target="_blank">标题文字限制20个汉字?</a></div></div>
+                        <div class="common-quest-item clearfix"><span class="iconfont iconfont-msg icon-quest"></span><div><a href="" target="_blank">标题文字限制20个汉字?</a></div></div>
+                        <div class="common-quest-item clearfix"><span class="iconfont iconfont-msg icon-quest"></span><div><a href="" target="_blank">标题文字限制20个汉字?</a></div></div>
+                        <div class="common-quest-item clearfix"><span class="iconfont iconfont-msg icon-quest"></span><div><a href="" target="_blank">标题文字限制20个汉字?</a></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="consulting-box lawer-consult">
+                <div class="consulting">
+                    <div class="box-title">
+                        <img src="/showimg?url=images/icon-images/computer.png" alt=""><span>他们正在向他咨询...</span>
+                    </div>
+                    <div class="consult-box">
+                        <div class="consult-item clearfix">
+                            <div class="consult-item-left"><a href=""><img src="/showimg?url=images/user-images/tx2.jpg"/></a></div>
+                            <div class="consult-item-right">
+                                <div class="consult-content"><a href="" target="_blank"><script>document.write(cutString("这里是用户咨询的内容,可以设定为200字以内,此处可以显示50..",40))</script></a></div>
+                                <div class="consult-time">咨询于:<span><script>document.write(dateFormat_Msg("2015-03-12 12:00:00"))</script></span></div>
+                            </div>
+                        </div>
+                        <div class="consult-item clearfix">
+                            <div class="consult-item-left"><a href=""><img src="/showimg?url=images/user-images/tx2.jpg"/></a></div>
+                            <div class="consult-item-right">
+                                <div class="consult-content"><a href="" target="_blank">这里是用户咨询的内容,可以设定为200字以内,此处可以显示5..</a></div>
+                                <div class="consult-time">咨询于:<span>7小时前</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-lawfirmbox">
+                <div class="search-lawfirm">
+                    <div class="box-title">
+                        <img src="/showimg?url=images/icon-images/computer.png" alt=""><span>事务所内搜索</span>
+                    </div>
+                    <div class="search-law">
+                        <div class="iconfont iconfont-search law-icon"></div>
+                        <input type="text" class="search-law-input" placeholder="律师/法务名称"/>
+                        <button class="search-law-btn">搜索</button>
+                    </div>
+                </div>
+            </div>
+            <div class="advert-box">
+                <a href="" target="_blank"><img src="/showimg?url=images/user-images/advert1.png" alt=""></a>
+            </div>
+            <div class="other-lawerbox">
+                <div class="other-lawerbox-inner">
+                    <div class="box-title">
+                        <img src="/showimg?url=images/icon-images/computer.png" alt=""><span>同事务所其他律师</span><a href="" target="_blank">更多></a>
+                    </div>
+                    <div class="other-lawer">
+                        <div class="other-lawer-item">
+                            
+                            <div class="other-lawer-title"><a href="" target="_blank">张李白</a><span>一级律师</span></div>
+                            <div class="other-law-level clearfix">
+                                 <ul class="other-law-level-ul clearfix">
+                                    <li><span class="iconfont icon-star"></span></li>
+                                    <li><span class="iconfont icon-star"></span></li>
+                                    <li><span class="iconfont icon-star"></span></li>
+                                    <li><span class="iconfont icon-star"></span></li>
+                                    <li><span class="iconfont icon-emptystar"></span></li>
+                                </ul>
+                                <span><span>9.5</span>分</span>
+                            </div>
+                           
+                            <div class="other-law-address clearfix">
+                                    <div class="other-lawer-intro"><span>擅长:</span><script>document.write(cutString("债务债权,损害哦诶场,损害赔偿损害赔偿损害赔偿损害赔偿损害赔偿损害赔偿损害赔偿",25))</script></div>
+                            </div>
+                        </div>
+                         <div class="other-lawer-item">
+                            
+                            <div class="other-lawer-title"><a href="" target="_blank">张李白</a><span>一级律师</span></div>
+                            <div class="other-law-level clearfix">
+                                 <ul class="other-law-level-ul clearfix">
+                                    <li><span class="iconfont icon-star"></span></li>
+                                    <li><span class="iconfont icon-star"></span></li>
+                                    <li><span class="iconfont icon-star"></span></li>
+                                    <li><span class="iconfont icon-star"></span></li>
+                                    <li><span class="iconfont icon-emptystar"></span></li>
+                                </ul>
+                                <span><span>9.5</span>分</span>
+                            </div>
+                           
+                            <div class="other-law-address clearfix">
+                                    <div class="other-lawer-intro"><span>擅长:</span><script>document.write(cutString("债务债权,损害哦诶场,损害赔偿损害赔偿损害赔偿损害赔偿损害赔偿损害赔偿损害赔偿",25))</script></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="advert-box">
+                <a href="" target="_blank"><img src="/showimg?url=images/user-images/advert2.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+	<div class="footer">
+        <div class="container">
+            <div class="left-footer">
+                <a href=""><img src="/showimg?url=images/icon-images/allzfw.png"></a>
+            </div>
+            <div class="middle-footer">
+                <div class="middle-footer1">
+                    <a target="_blank" href="">关于我们</a>
+                    <span>|</span>
+                    <a target="_blank" href="">加入知峰网</a>
+                    <span>|</span>
+                    <a target="_blank" href="">服务条例</a>
+                    <span>|</span>
+                    <a target="_blank" href="">联系我们</a>
+                    <span>|</span>
+                    <a target="_blank" href="">帮助中心</a>
+                    <span>|</span>
+                    <a target="_blank" href="">客服中心</a>
+                    <span>|</span>
+                    <a target="_blank" href="">网站建设</a>
+                    <span>|</span>
+                    <a target="_blank" href="">新浪微博</a>
+                </div>
+                <div class="middle-footer2">
+                     <span>版权所有：某某某有限公司</span>
+                     <span>沪B2-243007</span>
+                     <span>沪网(09)网申[2014]093号</span>
+                     <span>(沪)-经营性-2014-0021</span>
+                </div>
+            </div>
+            <div class="right-footer">
+                <div>
+                    <span>官方微信二维码</span>
+                    <img src="/showimg?url=images/icon-images/2wm.png">
+                </div>
+            </div>
+        </div>
+	</div>
+    <script>
+        $('#datepicker1').datetimepicker({
+            lang:'ch',
+            timepicker:false,
+            format:'Y-m-d',
+            formatDate:'Y-m-d'
+        });
+          $('#datepicker2').datetimepicker({
+            lang:'ch',
+            timepicker:false,
+            format:'Y-m-d',
+            formatDate:'Y-m-d'   
+        });
+          $(".service-to-him").click(function(){
+            $(".lawer-custom-replybox").toggle();
+          });
+          $(".openlist").click(function(){
+           if($(".list-box").hasClass("put-away")){
+                $(".list-box").removeClass("put-away");
+                $(".request-list-title").removeClass("request-list-title");
+                $(this).text("[收起]");
+            } else{
+                $(".list-box").addClass("put-away");
+                $(".request-list-box .box-title").addClass("request-list-title");
+                 $(this).text("[展开]");
+            }
+          });
+          
+          function sendMsg(){
+        	  var clickStr = $(".reply-send-btn").attr("onclick");
+        		$(".reply-send-btn").attr("onclick","");
+        		setTimeout(function(){
+        			$(".reply-send-btn").attr("onclick",clickStr);
+        		},1000);
+          	$.post("/work/needreply", { needIDs: ${need.id}, args: formatHTML($("#content").val()),formToken: $("#formToken").val() }, function (data){    
+          		if (data == "success") {
+  					window.location.reload();
+  				}
+          		
+  			}, "json");
+          }
+          
+          
+    </script>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+       <div class="judge-box">
+           <div class="judge-box-inner">
+               <div class="judge-header">
+                   <div class="judge-title">评价</div>
+                   <div class="judge-close" data-dismiss="modal">取消评价</div>
+               </div>
+               <div class="judge-body">
+                   <table class="judge-table">
+                       <tr><td class="judge-name ">服务态度:</td><td class="judge-content label-check"><label><div class="model-checkbox servicemanner" check="false" value="较差"><div class="model-checkbox-inner"></div></div>较差</label><label><div class="model-checkbox servicemanner" check="true" value="一般"><div class="model-checkbox-inner"></div></div>一般</label><label ><div class="model-checkbox servicemanner" check="false" value="满意"><div class="model-checkbox-inner"></div></div>满意</label></td></tr> 
+                       <tr><td class="judge-name" >服务时间:</td><td class="judge-content label-check"><label for="check_d"><div class="model-checkbox servicespeed" check="false" value="较慢"><div class="model-checkbox-inner"></div></div>较慢</label><label for="check_e"><div class="model-checkbox servicespeed" check="true" value="一般"><div class="model-checkbox-inner"></div></div>一般</label><label for="check_f"><div class="model-checkbox servicespeed" check="false" value="很快"><div class="model-checkbox-inner"></div></div>很快</label></td></tr>
+                       <tr><td class="judge-name">服务评分:</td><td class="judge-content"> <ul class="judge-level-ul clearfix">
+                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li>
+                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li></li>
+                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li></li>
+                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li></li>
+                                <li><span class="iconfont icon-emptystar"></span><div class="bc_choose"><div class="star-all"></div><div class="star-all"></div></div></li></li>
+                            </ul><span class="realGrade"><span class="finalgrade">0</span>分</span><span class="gradeTip">(满分5分)</span></td></tr>
+                   </table>
+               </div>
+               <div class="judge-footer">
+                   <div>评论内容:</div>
+                   <div>
+                       
+                       <div class="judge-custom-replybox" >
+                           <div class="judge-custom-replybox-top">                                       
+                            <textarea name="" id="" placeholder="请输入回复内容" class="judge-txt" ></textarea>
+                           </div>
+                           <div class="judge-custom-replybox-bottom">
+                               <div class="words-summ"><span class="hasword">0</span>/<span>1000</span></div>
+                               <div class="reply-send-btn" onclick="commit_judge('${order.id}')"><img src="/showimg?url=images/icon-images/enterreply.png" alt="" >确认完成</div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+      </div>
+</div>
+
+</body>
+</html>

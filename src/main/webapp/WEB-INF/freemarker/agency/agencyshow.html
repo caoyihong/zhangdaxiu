@@ -1,0 +1,205 @@
+<#-- 全局变量 --> <#global ctx="${(ctp.contextPath)!''}">
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset =UTF-8">
+<title>中介_事务所首页</title>
+<link href="${ctx}/static/styles/lawfirm.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/static/styles/lawfirm-common.css" rel="stylesheet" type="text/css" />
+<@h.linkFiles />
+</head>
+<body>
+<script type="text/javascript">
+$(function(){
+	$(".joinheart").click(function(){
+		var id = $(this).attr("agencyid");
+		var content = $(this);
+		var type = 1;//表示收藏的为中介机构
+		
+		$.ajax({
+			type : 'POST',
+			url : '/work/storeAgency',
+			async : false,
+			data : {type : type,id : id},
+			success : function(data){
+				if(data=="success"){
+					content.parent().html("<div class='joinheartyet'><span class='iconfont icon-heart'></span><div>已收藏</div></div>");
+				}
+				//alert(data);
+			},
+			error : function(){
+				alert("error");
+			}
+		});
+	});
+});
+</script>
+	<@h.head />
+      <div class="lawfirm-top">
+            <div class="lawfirm-nav">
+                <ul class="small-nav">
+                    <li><a href="${ctx}/">首页</a></li>
+                    <li><a href="">${agency.zfAddress.province}</a></li>
+                    <li><a href="">${agency.zfAddress.city}</a></li>
+                    <li>${agency.name}</li>
+                </ul>
+            </div>
+            <div class="lawfirm-title clearfix">
+                <div class="lawfirm-title-left">
+                    <div class="lawfirm-name">${agency.name}</div>
+                    <div class="lawfirm-name-dis"><script>document.write(cutString("<#if agency.selfintroduce??> ${agency.selfintroduce} <#else>未填写</#if>",35))</script></div>
+                    <div class="lawfirm-tab">
+                        <ul class="lawfirm-tab-ul clearfix">
+                            <li class="lawfirm-tab-active"><div ></div><a href="${ctx}/agency/${agency.id}">事务所首页</a></li>
+                            <li><div class="lawfirm-tab-wait"></div><a href="${ctx}/agency/${agency.id}/introduce">事务所简介</a></li>
+                            <li><div class="lawfirm-tab-wait"></div><a href="${ctx}/agency/${agency.id}/lowslist">法务经验</a></li>
+                            <li><div class="lawfirm-tab-wait"></div><a href="${ctx}/agency/${agency.id}/neworders">法务预约</a></li>
+                            <li><div class="lawfirm-tab-wait"></div><a href="${ctx}/agency/${agency.id}/locals">周边</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lawfirm-title-right">
+                    <div class="lawfirm-title-right-box">
+                        <div class="lawfirm-level">
+                            <ul class="lawfirm-level-ul clearfix">
+                                <li><span class="iconfont icon-star"></span></li>
+                                <li><span class="iconfont icon-star"></span></li>
+                                <li><span class="iconfont icon-star"></span></li>
+                                <li><span class="iconfont icon-star"></span></li>
+                                <li><span class="iconfont icon-emptystar"></span></li>
+                            </ul>
+                        </div>
+                        <div class="lawfirm-grade clearfix">
+
+                            <div class="grade">9.5分</div><span>/</span><div class="exper"><a href="${ctx}/agency/${agency.id}/lowslist"><span>${orders?size}</span>条法务经验</a></div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    <div class="lawfirm-middle container clearfix">
+       <div class="lawfirm-middle-left">
+            <div class="lawfirm-intro clearfix">
+                <div class="lawfirm-photo">
+                    <a><img src="/showimg?url=${agency.head}" alt=""></a>
+
+                </div>
+                <div class="lawfirm-detail">
+                    <div class="lawfirm-detail-top clearfix">
+                        <div class="detail-top-left">
+                            <div class="detail-itemone clearfix"><div class="item-name">地址:</div><div class="item-content"><script>document.write(cutString("${agency.zfAddress.detail}",35))</script></div></div>
+                            <div class="detail-itemtwo clearfix"><div class="item-name">电话</div><div class="item-content">${agency.phone}</div></div>
+                             <div class="detail-itemthree clearfix"><div class="item-name">官网:</div><div class="item-content">${agency.companyweb}</div></div>
+                        </div>
+                        <div class="detail-top-right">
+                        	<#if isStore==0>
+                            	<a href="javascript:void(0);" class="joinheart" agencyid="${agency.id}"><span class="iconfont icon-heart"></span><div>加入收藏</div></a>
+                            <#else>
+                            	<div class="joinheartyet"><span class="iconfont icon-heart"></span><div>已收藏</div></div>
+                            </#if>
+                        </div>
+                    </div>
+                    <div class="lawfirm-detail-bottom clearfix">
+                        <div class="detail-itemfour clearfix"><div class="item-name">简介</div><div class="item-content-intro"><span><script>document.write(cutString("${agency.introduce}",50))</script><a href="/agency/${agency.id}/introduce">更多></a></div></div>
+                    </div>            
+                </div>
+            </div>
+            <div class="lawfirm-recomm">
+                <div class="lawfirm-recom-box">
+                    <div class="box-title">
+                        <img src="/showimg?url=/images/icon-images/index.png" alt=""><span>金牌律师推荐</span><a href="">更多推荐></a>
+                    </div>
+                    <div class="lawfirm-box">
+                    	 <#if (employeeInfo?size>0)>
+                    		<#list employeeInfo as employee>
+	                    		<div class="lawfirm-item clearfix">
+		                            <div class="lawfirm-item-left clearfix">
+		                                <div class="lawer-photo">
+		                                    <a href="/agency/${agency.id}/agencye/${employee['id']}"><img src="/showimg?url=${employee['head']}" alt=""></a>
+		                                </div>
+		                                <div class="lawer-info">
+		                                    <div class="lawer-info-name"><a href="/agency/${agency.id}/agencye/${employee['id']}">${employee['name']}</a></div>
+		                                    <div class="lawer-info-level">${employee['identity']}</div>
+		                                    <div class="lawer-info-working-time">${employee['worktime']}年</div>
+		                                </div>
+		                            </div>
+		                            <div class="lawfirm-item-center">
+		                                <div class="lawer-goodat">
+		                                    <span>擅长:</span>
+		                                    <span><script>document.write(cutString("${employee['skill']}",20))</script></span>
+		                                </div>
+		
+		                            </div>
+		                            <div class="lawfirm-item-right clearfix">
+		                                <div class="advice">
+		                                    <span>${employee['total']}</span>
+		                                    <span>咨询量</span>
+		                                </div>
+		                                <div class="hand">
+		                                    <img src="/showimg?url=/images/icon-images/zan.png" alt="">
+		                                </div>
+		                                <div class="percent">
+		                                    <div class="profes">专业性:<span>${employee['serviceRank']}</span></div>
+		                                    <div class="service">服务性:<span>${employee['timeRank']}</span></div>
+		                                </div>
+		                            </div>
+	                        	</div>
+                    		</#list><#else>
+						<div class="emptycontent-box">
+	                        <div><span class="iconfont icon-tip emptyicon"></span>暂时没有律师推荐~</div>
+	                    </div>
+						</#if>
+                    </div>
+                </div>
+            </div>
+			<#if (orders?size>0)>
+	            <div class="law-exper">
+	                <div class="law-exper-box">
+		                    <div class="box-title">
+		                        <img src="/showimg?url=/images/icon-images/index.png" alt=""><span>法务经验</span><a href="/agency/${agency.id}/lowslist">查看更多></a>
+		                    </div>
+		                    <div class="exper-box">
+		                    		<#list orders as order>
+				                        <div class="exper-item clearfix">
+				                            <div class="exper-item-left">
+				                                <a href="" class="exper-lawer-photo"><img src="/showimg?url=${order.normalUser.head}" alt=""></a>
+				                                <a href="" class="exper-lawer-name">${order.normalUser.name}</a>
+				                            </div>
+				                            <div class="exper-item-right">
+				                                <div class="exper-item-rtop clearfix">
+					                                <div class="questype">咨询类别:<span class="rtop-content">${order.type}</span></div>
+					                                <div class="lawerservice">律师服务:<span class="rtop-content-y"><#if order.servicerank??> ${order.servicerank} <#else> 未填写 </#if> </span></div>
+					                                <div class="servicetime">服务时间:<span class="rtop-content-y"><#if order.timerank??> ${order.timerank} <#else> 未填写 </#if></span></div>
+				                                </div>
+				                                <div class="exper-item-rmid clearfix">
+				                                    <div class="rmid-disc">评论:</div>
+				                                    <div class="rmid-content"><a href="/common/showorder/${order.needid}"><script>document.write(cutString("<#if order.judge??> ${order.judge} <#else> 未填写 </#if>",60))</script></a></div>
+				                                </div>
+				                                <div class="exper-item-rbot clearfix">
+				                                    <div class="exper-time">2014/01/22 19:00:23<#--${order.finishtime?string("yyyy-MM-dd HH:mm:ss")}--></div>
+				                                    <div class="exper-explain"><span>(咨询后当天)</span> <span>分享的法务经验</span></div>
+				                                    <div class="exer-servicelawer">服务律师:<a href="/agency/${agency.id}/agencye/${order.agencyemployeeid}">${order.agencye.name}</a></div>
+				                                </div>
+				                            </div>
+				                        </div>
+		                        	</#list>
+			                        <div class="checkmoreexper">
+			                            <a href="${ctx}/agency/${agency.id}/lowslist">查看全部<span>${orders?size}</span>条法务经验<span class="iconfont icon-rightpointer"></span></a>
+			                        </div>
+		                    </div>
+	                </div>
+	            </div>
+			</#if>
+       </div>
+        <div class="lawfirm-middle-right">
+			<@h.neworders orders = neworders/>
+			<@h.searchLawfirmbox /> 
+			<@h.advertBox1 /> 
+			<@h.otherLawfirmbox />
+			<@h.commonQuestionbox /> 
+			<@h.advertBox2 />
+        </div>
+    </div>
+	<@h.footer />
+</body>
+</html>

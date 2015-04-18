@@ -1,0 +1,395 @@
+<#-- 全局变量 --> <#global ctx="${(ctp.contextPath)!''}">
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset =UTF-8">
+<title>中介机构检索</title>
+<link href="${ctx}/static/styles/lawfirm.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/static/styles/intermediarysearch.css" rel="stylesheet"
+	type="text/css" />
+<link href="${ctx}/static/styles/lawfirm-common.css" rel="stylesheet" type="text/css" />
+<script src="${ctx}/static/js/AreaData_min.js" type="text/javascript"></script>
+<@h.linkFiles />
+
+	<script>
+		$(function(){
+			initSearchbox();
+		});
+	</script>
+</head>
+<body>
+	<@h.head />
+	<div class="lawfirm-sarch-top">
+		<div class="lawfirm-nav">
+			<ul class="small-nav">
+				<li><a href="${ctx}/">首页</a></li> 
+				<#if returndatas.msg == "ip">
+					<#if serviceT??>
+						<li><a href="${ctx}/ipservice">知识产权服务</a></li>
+						<li>${serviceT}</li> 
+					<#else>
+						<li>知识产权服务</li> 
+					</#if>
+				<#else>
+					<#if serviceT??>
+						<li><a href="${ctx}/iplowservice">知识产权法务</a></li>
+						<li>${serviceT}</li> 
+					<#else>
+						<li>知识产权法务</li> 
+					</#if>
+				</#if>
+			</ul>
+		</div>
+		<div class="search-box">
+			<div class="search-box-inner" status="open">
+				<div class="search-box-title">
+					<span>按条件筛选中介机构：</span> <a href="${ctx}/ipservice">全部清除</a>
+				</div>
+				<div class="search-box-mid">
+					<div class="search-row clearfix">
+						<div class="search-row-province clearfix">
+							<div class="search-rowname">所在省份:</div>
+							<div class="search-rowcontent">
+								<div class="provinces clearfix">
+								</div>
+							</div>
+						</div>
+						<div class="search-row-city clearfix">
+							<div class="search-rowname">所在区/市:</div>
+							<div class="search-rowcontent">
+								<div class="citys clearfix">
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="search-row clearfix">
+						<div class="search-rowname">服务类型:</div>
+						<div class="search-rowcontent">
+							<div class="servicestype clearfix">
+								<a href="javascript:void(0)"
+									class="searchthis" value="">全部</a> 
+								<#if returndatas.map.ipServices?exists>
+									<#list returndatas.map.ipServices as ipService>
+										<a href="javascript:void(0)" class="searchthis" value="${ipService}">${ipService}</a>
+									</#list>
+								</#if>
+								
+							</div>
+						</div>
+					</div>
+					<div class="search-row clearfix">
+						<div class="search-rowname">机构类型:</div>
+						<div class="search-rowcontent">
+							<div class="mechanism clearfix">
+								<a href="javascript:void(0)"
+									class="searchthis" value="">全部</a>
+								<#if returndatas.map.agencyTypes?exists>
+									<#list returndatas.map.agencyTypes as agencyType>
+										<a href="javascript:void(0)" class="searchthis" value="${agencyType}">${agencyType}</a>
+									</#list>
+								</#if>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="search-box-bot">
+				<div class="close-search-box">收起条件</div>
+			</div>
+		</div>
+	</div>
+	<div class="lawfirm-middle container clearfix">
+		<div class="lawfirm-middle-left">
+			<div class="serch-result-box">
+				<div class="search-result-title">
+					<span>找到符合条件有以下<span><#if returndatas.data?exists>${returndatas.data?size}<#else>0</#if></span>家机构
+					</span>
+				</div>
+				<div class="search-result-content">
+					<#if (returndatas.data.list?exists && returndatas.data.list?size>0)> <#list returndatas.data.list as
+					agencydata>
+
+					<div class="search-result-item clearfix">
+						
+						<div class="search-result-item-tip">
+						<#if Session.currentUser?exists == false>
+							<div class="search-result-item-tip-inner">登录后可免费预约</div>
+						</#if>
+						</div>
+						
+						<div class="search-result-item-content">
+							<div class="search-result-item-content-inner clearfix">
+								<div class="search-result-item-content-left">
+									<a class="search-result-item-photo"
+										href="${ctx}/agency/${agencydata.id}"><img
+										src="${ctx}/showimg?url=${agencydata.head}" alt=""></a>
+								</div>
+								<div class="search-result-item-content-mid">
+									<div class="lawfirm-result-name">
+										<a href="${ctx}/agency/${agencydata.id}">${agencydata.name}</a>
+									</div>
+									<div class="lawfirm-result-address clearfix">
+										<div class="lawfirm-result-address-name">地址:</div>
+										<div class="lawfirm-result-address-content">${agencydata.detail}</div>
+									</div>
+									<div class="lawfirm-result-phone clearfix">
+										<div class="lawfirm-result-phone-name">电话:</div>
+										<div class="lawfirm-result-phone-content">${agencydata.phone}</div>
+									</div>
+								</div>
+								<div class="search-result-item-content-right">
+									<ul class="lawfirm-level-ul pdl clearfix">
+										<li><span class="iconfont icon-star"></span></li>
+										<li><span class="iconfont icon-star"></span></li>
+										<li><span class="iconfont icon-star"></span></li>
+										<li><span class="iconfont icon-star"></span></li>
+										<li><span class="iconfont icon-emptystar"></span></li>
+									</ul>
+									<div class="gradevalue">
+										<span>9.5</span>分
+									</div>
+									<div class="consult-ammount clearfix">
+										<a href="" class="shenglve">${agencydata.numbers}</a>
+										<div>咨询量</div>
+									</div>
+									<div class="check-result-detail">
+										<a href="${ctx}/agency/${agencydata.id}">查看详情</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</#list> <#else>
+					<div class="emptycontent-box">
+                        <div><span class="iconfont icon-tip emptyicon"></span>没有找到符合条件的内容~</div>
+                    </div>
+					</#if>
+					<!-- 分页-->
+					<div class="paginator-bar">
+						<ul id="aggencyListPaginator" class="pagination"></ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="lawfirm-middle-right">
+
+
+
+			<div class="advert-box">
+				<a href="" target="_blank"><img
+					src="${ctx}/showimg?url=images/background-images/advert3.png" alt=""></a>
+			</div>
+			<div class="other-lawfirmbox">
+				<div class="other-lawfirm">
+					<div class="box-title">
+						<img src="${ctx}/showimg?url=images/icon-images/computer.png" alt=""><span>知识产权机构推荐</span>
+					</div>
+					<div class="other-law">
+						<div class="other-law-item">
+
+							<div class="other-law-title">
+								<a href="" target="_blank">金杜律师事务所(上海分部)</a>
+							</div>
+							<div class="other-law-level clearfix">
+								<ul class="other-law-level-ul clearfix">
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-emptystar"></span></li>
+								</ul>
+								<span><span>9.5</span>分</span>
+							</div>
+							<div class="other-law-img">
+								<a href="" target="_blank"><img
+									src="${ctx}/showimg?url=images/user-images/jindu.png" alt=""></a>
+							</div>
+							<div class="other-law-phone clearfix">
+								<div class="other-law-phone-name">电话:</div>
+								<div class="other-law-phone-content">010-10010-101</div>
+							</div>
+							<div class="other-law-address clearfix">
+								<div class="other-law-address-name">地址:</div>
+								<div class="other-law-address-content">
+									<script>
+										document.write(cutString(
+												"上海市沪松区百度大厦B-902撒大时代的", 25))
+									</script>
+								</div>
+							</div>
+						</div>
+						<div class="other-law-item">
+
+							<div class="other-law-title">
+								<a href="" target="_blank">金杜律师事务所(上海分部)</a>
+							</div>
+							<div class="other-law-level clearfix">
+								<ul class="other-law-level-ul clearfix">
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-emptystar"></span></li>
+								</ul>
+								<span><span>9.5</span>分</span>
+							</div>
+							<div class="other-law-img">
+								<a href="" target="_blank"><img
+									src="${ctx}/showimg?url=images/user-images/jindu.png" alt=""></a>
+							</div>
+							<div class="other-law-phone clearfix">
+								<div class="other-law-phone-name">电话:</div>
+								<div class="other-law-phone-content">010-10010-101</div>
+							</div>
+							<div class="other-law-address clearfix">
+								<div class="other-law-address-name">地址:</div>
+								<div class="other-law-address-content">
+									<script>
+										document.write(cutString(
+												"上海市沪松区百度大厦B-902撒大时代的", 25))
+									</script>
+								</div>
+							</div>
+						</div>
+						<div class="other-law-item">
+
+							<div class="other-law-title">
+								<a href="" target="_blank">金杜律师事务所(上海分部)</a>
+							</div>
+							<div class="other-law-level clearfix">
+								<ul class="other-law-level-ul clearfix">
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-emptystar"></span></li>
+								</ul>
+								<span><span>9.5</span>分</span>
+							</div>
+							<div class="other-law-img">
+								<a href="" target="_blank"><img
+									src="${ctx}/showimg?url=images/user-images/jindu.png" alt=""></a>
+							</div>
+							<div class="other-law-phone clearfix">
+								<div class="other-law-phone-name">电话:</div>
+								<div class="other-law-phone-content">010-10010-101</div>
+							</div>
+							<div class="other-law-address clearfix">
+								<div class="other-law-address-name">地址:</div>
+								<div class="other-law-address-content">
+									<script>
+										document.write(cutString(
+												"上海市沪松区百度大厦B-902撒大时代的", 25))
+									</script>
+								</div>
+							</div>
+						</div>
+						<div class="other-law-item">
+
+							<div class="other-law-title">
+								<a href="" target="_blank">金杜律师事务所(上海分部)</a>
+							</div>
+							<div class="other-law-level clearfix">
+								<ul class="other-law-level-ul clearfix">
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-star"></span></li>
+									<li><span class="iconfont icon-emptystar"></span></li>
+								</ul>
+								<span><span>9.5</span>分</span>
+							</div>
+							<div class="other-law-img">
+								<a href="" target="_blank"><img
+									src="${ctx}/showimg?url=images/user-images/jindu.png" alt=""></a>
+							</div>
+							<div class="other-law-phone clearfix">
+								<div class="other-law-phone-name">电话:</div>
+								<div class="other-law-phone-content">010-10010-101</div>
+							</div>
+							<div class="other-law-address clearfix">
+								<div class="other-law-address-name">地址:</div>
+								<div class="other-law-address-content">
+									<script>
+										document.write(cutString(
+												"上海市沪松区百度大厦B-902撒大时代的", 25))
+									</script>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="common-questionbox">
+				<div class="common-question">
+					<div class="box-title">
+						<img src="${ctx}/showimg?url=images/icon-images/heart.png" alt=""><span>常见问题</span>
+					</div>
+					<div class="common-quest-box">
+						<div class="common-quest-item clearfix">
+							<span class="iconfont iconfont-msg icon-quest"></span>
+							<div>
+								<a href="" target="_blank"><script>
+									document
+											.write(cutString("标题文字限制15个汉字?", 15))
+								</script></a>
+							</div>
+						</div>
+						<div class="common-quest-item clearfix">
+							<span class="iconfont iconfont-msg icon-quest"></span>
+							<div>
+								<a href="" target="_blank">标题文字限制20个汉字?</a>
+							</div>
+						</div>
+						<div class="common-quest-item clearfix">
+							<span class="iconfont iconfont-msg icon-quest"></span>
+							<div>
+								<a href="" target="_blank">标题文字限制20个汉字?</a>
+							</div>
+						</div>
+						<div class="common-quest-item clearfix">
+							<span class="iconfont iconfont-msg icon-quest"></span>
+							<div>
+								<a href="" target="_blank">标题文字限制20个汉字?</a>
+							</div>
+						</div>
+						<div class="common-quest-item clearfix">
+							<span class="iconfont iconfont-msg icon-quest"></span>
+							<div>
+								<a href="" target="_blank">标题文字限制20个汉字?</a>
+							</div>
+						</div>
+						<div class="common-quest-item clearfix">
+							<span class="iconfont iconfont-msg icon-quest"></span>
+							<div>
+								<a href="" target="_blank">标题文字限制20个汉字?</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="advert-box">
+				<a href="" target="_blank"><img
+					src="${ctx}/showimg?url=images/user-images/advert1.png" alt=""></a>
+			</div>
+			<div class="advert-box">
+				<a href="" target="_blank"><img
+					src="${ctx}/showimg?url=images/user-images/advert1.png" alt=""></a>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="currentPage" value="${returndatas.data.pageNum}"/><!-- 当前页码 -->
+	<input type="hidden" id="totalPages" value="${returndatas.data.pages}"/><!-- 总页数 -->
+	<@h.footer/>
+	<script>
+		$(function(){
+			initPaginator("aggencyListPaginator"); 
+			changeStyleOfPage();
+		});
+	</script>
+</body>
+</html>

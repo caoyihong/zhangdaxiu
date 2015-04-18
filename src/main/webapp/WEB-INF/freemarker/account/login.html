@@ -1,0 +1,65 @@
+<#-- 全局变量 --> <#global ctx="${(ctp.contextPath)!''}">
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>登录</title>
+<link href="${ctx}/static/styles/common.css" rel="stylesheet" type="text/css" /> 
+<link href="${ctx}/static/styles/login.css" rel="stylesheet" type="text/css" />
+<script src="${ctx}/static/js/jquery-1.9.1.min.js" type="text/javascript" ></script>
+<script src="${ctx}/static/js/special-efficacy.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/function.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/jquery.luara.0.0.1.min.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-bar"><a href="${ctx}/" target="_blank" class="logo-img"><img src="/showimg?url=images/icon-images/logo.png"  class="logo"></a></div>
+    <div class="loginbox">
+        <div class="login-step1">
+            <div class="login-title">
+                <div class="free-title"><s class="left-corner"><i></i></s>快速登录</div>    
+                <div class="login-link">还没有帐号了?直接<a href="/submit" class="link">注册</a></div>
+            </div>
+            <div class="login-form">
+                <form onsubmit="return check_loginForm()" action="/login" method="post">
+                    <div class="login-item">
+                    <div class="form-title"><span class="star-warn">*</span>账号</div>
+	                    <div class="form-content">
+	                   		<input type="text" value="${username!''}" class="form-input check-loginname" loginname_registed="true" name="username" placeholder="用户名/手机/邮箱" />
+	                    </div>
+                    </div>
+                    <div class="errMsg loginname-err"></div>
+                    <div class="login-item">
+                    	<div class="form-title"><span class="star-warn">*</span>登录密码</div>
+	                    <div class="form-content">
+	                    	<input type="password" class="form-input check-loginpass" name="password"/>
+	                    </div>
+                    </div>
+                    <div class="errMsg loginpass-err"></div>
+                    <div class="login-item">
+	                    <div class="form-title"><span class="star-warn">*</span>身份</div>
+	                    <div class="form-content">
+		                    <label for="lab-one" class="chooserole">
+		                    	<input type="radio" name="logintype" id="lab-one" value="0" checked>个人
+		                    </label>
+		                    <label for="lab-two" class="chooserole">
+		                    	<input type="radio" name="logintype" id="lab-two" value="2">中介
+		                    </label>
+		                    <label for="lab-three" class="chooserole">
+		                    	<input type="radio" name="logintype" id="lab-three" value="1">企业
+		                    </label>
+	                    </div>
+                    </div>
+
+                    <div class="login-item"><label for="memorypass" class="remeber-pass"><input name="rememberMe" type="checkbox" id="memorypass">一周内记住密码</label> <div class="find-pass">忘记密码?<a href="/findpass" target="_blank">找回密码</a></div></div>
+                     <div class="formtool">
+                             <input type="submit" class="login-submit" value="登录">
+                     </div>
+                </form>
+             
+            </div>
+         </div>
+    </div>
+    <input type="hidden" id="hiddenErrMsg" value="${returndatas.msg}"/>
+</body>
+</html>

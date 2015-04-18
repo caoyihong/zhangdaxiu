@@ -1,0 +1,32 @@
+<#-- 全局变量 --> <#global ctx="${(ctp.contextPath)!''}">
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset =UTF-8">
+<title>建设中</title>
+    <link href="${ctx}/static/styles/ordersuccess.css" rel="stylesheet" type="text/css" />
+    <@h.linkFiles />
+    
+    <style>
+        .footer{
+            position: absolute ! important;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body style="background-color: #F8F8F7;">
+    <div class="container">
+        <div class="build-top"><a href="zhifeng.com"><img src="${ctx}/showimg?url=images/icon-images/allzfw.png" alt=""></a></div>
+         <div class="underConstruction">
+            <div class="build-img">
+                <a ><img src="${ctx}/showimg?url=images/icon-images/build.png" alt=""></a>
+            </div>
+            <div>
+                <div class="building-words1">网站正在建设中,敬请期待!</div>
+                <div class="building-words2">The website is under construction,so stay tuned!</div>
+            </div>
+         </div>
+    </div>
+	<@h.footer />
+</body>
+</html>

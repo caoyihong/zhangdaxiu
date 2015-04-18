@@ -1,0 +1,12 @@
+.lawfirm-middle-right .forms_right{
+	width:270px;
+	margin:0px;
+}
+.lawfirm-middle-right .forms_right img{
+	float:right;
+	margin-bottom:10px;
+}
+.lawfirm-middle-right .forms_right > a{
+	float:right;
+	margin-bottom:10px;
+}

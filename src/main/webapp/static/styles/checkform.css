@@ -1,0 +1,22 @@
+/********************************checkform.css***********************************/
+
+/********************************notice begin***********************************/
+.notice{
+	width:500px;
+	padding-left:125px;
+	color:#f00;
+}
+.datepickerbox .notice{
+	padding-left:0;
+}
+.warning{
+	border:2px solid #f00;
+}
+.notice_area{
+	padding: 50px 0px;
+}
+.notice_after{
+	padding-left:150px;
+	line-height:45px;
+}
+/********************************notice end***********************************/

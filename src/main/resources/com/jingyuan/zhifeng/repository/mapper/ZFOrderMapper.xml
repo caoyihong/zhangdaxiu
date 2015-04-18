@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingyuan.zhifeng.repository.ZFOrderMapper" >
+<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+  <resultMap id="BaseResultMap" type="com.jingyuan.zhifeng.entity.ZFOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="agencyemployeeid" property="agencyemployeeid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="servicerank" property="servicerank" jdbcType="VARCHAR" />
+    <result column="timerank" property="timerank" jdbcType="VARCHAR" />
+    <result column="judge" property="judge" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="enabled" property="enabled" jdbcType="TINYINT" />
+    <result column="finishtime" property="finishtime" jdbcType="TIMESTAMP" />
+    <result column="accepttime" property="accepttime" jdbcType="TIMESTAMP" />
+    <result column="price" property="price" jdbcType="DECIMAL"/>
+    <result column="needid" property="needid" jdbcType="INTEGER" />
+    <result column="ordertype" property="ordertype" jdbcType="INTEGER" />
+    <association property="agencye" column="agencyemployeeid" select="com.jingyuan.zhifeng.repository.ZFAgencyemployeeMapper.selectByPrimaryKey"></association>
+    <association property="normalUser" column="userid" select="com.jingyuan.zhifeng.repository.ZFUserMapper.selectByUserId"></association>
+    <association property="need" column="needid" select="com.jingyuan.zhifeng.repository.ZFNeedMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, agencyemployeeid, status, type, servicerank, timerank, judge, createtime, 
+    updatetime, enabled, finishtime, accepttime,price,needid,ordertype
+  </sql>
+<!--   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select o.*,u.*,a.*
+    from zf_order o,zf_user u,zf_agencyemployee a
+    where o.id = #{id,jdbcType=INTEGER} and o.userid = u.id and o.agencyemployeeid = a.id
+  </select> -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List"/>
+    from zf_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from zf_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingyuan.zhifeng.entity.ZFOrder" >
+    insert into zf_order (id, userid, agencyemployeeid, 
+      status, type, servicerank, 
+      timerank, judge, createtime, 
+      updatetime, enabled, finishtime, 
+      accepttime,price,needid,ordertype)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{agencyemployeeid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{servicerank,jdbcType=VARCHAR}, 
+      #{timerank,jdbcType=VARCHAR}, #{judge,jdbcType=VARCHAR}, now(), 
+      now(), #{enabled,jdbcType=TINYINT}, #{finishtime,jdbcType=TIMESTAMP}, 
+      #{accepttime,jdbcType=TIMESTAMP},#{price,jdbcType=DECIMAL}, #{needid,jdbcType=INTEGER}, 
+      #{ordertype,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jingyuan.zhifeng.entity.ZFOrder" >
+    insert into zf_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="agencyemployeeid != null" >
+        agencyemployeeid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="servicerank != null" >
+        servicerank,
+      </if>
+      <if test="timerank != null" >
+        timerank,
+      </if>
+      <if test="judge != null" >
+        judge,
+      </if>
+        createtime,
+        updatetime,
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="finishtime != null" >
+        finishtime,
+      </if>
+      <if test="accepttime != null" >
+        accepttime,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+       <if test="needid != null" >
+        needid,
+      </if>
+      <if test="ordertype != null" >
+        ordertype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="agencyemployeeid != null" >
+        #{agencyemployeeid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="servicerank != null" >
+        #{servicerank,jdbcType=VARCHAR},
+      </if>
+      <if test="timerank != null" >
+        #{timerank,jdbcType=VARCHAR},
+      </if>
+      <if test="judge != null" >
+        #{judge,jdbcType=VARCHAR},
+      </if>
+        now(),
+        now(),
+      <if test="enabled != null" >
+        #{enabled,jdbcType=TINYINT},
+      </if>
+      <if test="finishtime != null" >
+        #{finishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accepttime != null" >
+        #{accepttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+       #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="needid != null" >
+       #{needid,jdbcType=INTEGER},
+      </if>
+       <if test="ordertype != null" >
+       #{ordertype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingyuan.zhifeng.entity.ZFOrder" >
+    update zf_order
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="agencyemployeeid != null" >
+        agencyemployeeid = #{agencyemployeeid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="servicerank != null" >
+        servicerank = #{servicerank,jdbcType=VARCHAR},
+      </if>
+      <if test="timerank != null" >
+        timerank = #{timerank,jdbcType=VARCHAR},
+      </if>
+      <if test="judge != null" >
+        judge = #{judge,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+        updatetime = now(),
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=TINYINT},
+      </if>
+      <if test="finishtime != null" >
+        finishtime = #{finishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accepttime != null" >
+        accepttime = #{accepttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+       price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="needid != null" >
+       needid = #{needid,jdbcType=INTEGER},
+      </if>
+      <if test="ordertype != null" >
+       ordertype = #{ordertype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jingyuan.zhifeng.entity.ZFOrder" >
+    update zf_order
+    set userid = #{userid,jdbcType=INTEGER},
+      agencyemployeeid = #{agencyemployeeid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      servicerank = #{servicerank,jdbcType=VARCHAR},
+      timerank = #{timerank,jdbcType=VARCHAR},
+      judge = #{judge,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = now(),
+      enabled = #{enabled,jdbcType=TINYINT},
+      finishtime = #{finishtime,jdbcType=TIMESTAMP},
+      accepttime = #{accepttime,jdbcType=TIMESTAMP},
+      price = #{price,jdbcType=DECIMAL},
+      needid = #{needid,jdbcType=INTEGER},
+      ordertype = #{ordertype,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByEmployeeIdAndStatus" resultMap="BaseResultMap">
+  	select * from zf_order o where o.agencyemployeeid = #{0} and o.status = #{1}
+  </select>
+
+  <select id="countByEmployeeIdAndStatus" resultType="java.lang.Integer">
+  	select count(*) from zf_order o where o.agencyemployeeid = #{0} and o.status = #{1}
+  </select>
+  
+  <select id="countByServiceRank" resultType="java.lang.Integer">
+  	select count(*) from zf_order o where o.agencyemployeeid = #{0} and o.servicerank = #{1} and o.status = 2
+  </select>
+  
+   <select id="countByTimeRank" resultType="java.lang.Integer">
+  	select count(*) from zf_order o where o.agencyemployeeid = #{0} and o.timerank = #{1} and o.status = 2
+  </select>
+  
+  <select id="findSuccessOrder" resultMap="BaseResultMap">
+  	select * from zf_order o where o.agencyemployeeid in (
+  		select e.id from zf_agencyemployee e where e.agencyid = #{0}
+  	) 
+  	<if test="param3 != null">
+  		and o.status =#{param3}
+  	</if>
+  	
+  	order by 
+  	<if test="param3 == 2">
+  		o.finishtime desc
+  	</if>
+  	<if test="param3 != 2">
+  		o.createtime desc
+  	</if>
+  	<if test="param2 != 0">
+		limit #{param2}
+	</if> 
+  </select>
+  
+  <select id="countOrderByStatus" resultType="java.lang.Integer">
+  	select count(*) from zf_order o where o.agencyemployeeid in (
+  		select e.id from zf_agencyemployee e where e.agencyid = #{0}
+  	) and o.status =#{1}
+  </select>
+  
+  <select id="countOrderByUserIdAndStatus" resultType="java.lang.Integer">
+	select count(*) from zf_order o where o.agencyemployeeid = #{0} and o.status = #{1}
+		order by o.finishtime desc
+		<if test="param3 != 0">
+			limit #{param3}
+		</if> 
+
+  </select>
+  
+  <select id="countOrderByAgencyAndStatus" resultType="java.lang.Integer">
+	select count(*) from zf_order o,zf_agencyemployee e where e.agencyid = #{0} and o.status = 2 and e.id = o.agencyemployeeid
+
+  </select>
+  
+  <select id="findOrderByUserId" resultMap="BaseResultMap">
+	select * from zf_order o where o.agencyemployeeid = #{0} 
+		<if test="param2 != null">
+			and o.status = #{param2}
+		</if> 
+		<if test="param4 != null">
+			and o.type= #{param4}
+		</if> 
+		<if test="param2 == 1">
+			order by o.createtime desc
+		</if>
+		<if test="param2 == 2">
+			order by o.finishtime desc
+		</if>
+		
+		<if test="param3 != 0">
+			limit #{param3}
+		</if> 
+
+  </select>
+  
+  <select id="findOrderByNeedId" resultMap="BaseResultMap" useCache="false">
+  	select * from zf_order o where o.needid = #{0}
+  </select>
+  
+</mapper>

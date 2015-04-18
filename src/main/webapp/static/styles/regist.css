@@ -1,0 +1,323 @@
+body{
+    background-color: #4A89DC;
+    background-image: url(../images/background-images/bg_img1.png);
+}
+.regist-container{
+    width: 800px;
+    margin:0 auto;
+}
+.logo-bar{
+    height:60px;
+    margin-left: -60px;
+}
+.regist-box{
+    height: 600px;
+}
+.regist-step1{
+  width: 800px;
+min-height: 490px;
+margin: 20px auto 0;
+background-color: #fAFAFA;
+}
+
+.free-title{
+background-color: #FC6E51;
+width: 183px;
+height: 45px;
+color: #fff;
+position: relative;
+top: -15px;
+margin-left: 72px;
+display: inline-block;
+text-align: center;
+font-size: 23px;
+line-height: 45px;
+}
+.login-link{
+    display: inline-block;
+margin-left: 10px;
+padding-top: 18px;
+font-size: 14px;
+}
+.link{
+    margin-left:5px;
+}
+.step-img>img{
+    margin-left: 22px;
+}
+.step-name>div{
+    float: left;
+    color: #666;
+}
+.step-name>div:first-child{
+    margin-left: 28px;
+    font-weight: 600;
+    color:#000;
+}
+.step-name>div:nth-child(2){
+    margin-left:136px;
+}
+.step-name>div:nth-child(3){
+    margin-left:140px;
+}
+.role{
+    float: left;
+text-align: center;
+position: relative;
+height: 175px;
+width: 138px;
+}
+.role:nth-child(2){
+    margin-left: 100px;
+}
+.role:nth-child(3){
+    margin-left:78px;
+}
+.step-sign{
+    width: 600px;
+margin: 0 auto;
+padding-top: 10px;
+}
+.role-box{ 
+    width: 600px;
+    margin:0 auto;
+    padding-top:25px;
+}
+.left-corner{
+width: 0;
+position: absolute;
+left: -15px;
+top: 0px;
+height: 0;
+border-bottom: 12px solid #87483b;
+border-left: 15px solid transparent;
+}
+.rolename{
+color: #666;
+font-weight: 600;
+margin-top: 10px;
+width: 138px;
+position: absolute;
+bottom: 0;
+}
+.formbox{
+width: 700px;
+margin: 0 auto;
+margin-top: 25px;
+border-top: 1px dashed #ccc;
+display: none;
+}
+.normaluser,.bridgeuser,.companyuser{
+  padding: 10px 40px 40px;
+  display:none;
+}
+.registcomplete{
+    display:none;
+    margin-top: 10px;
+padding-bottom: 20px;
+}
+.normaluser>form>div,.bridgeuser>form>div,.companyuser>form>div{
+    margin-bottom:7px;
+}
+.visible{
+    display: block;
+}
+.formtitle{
+    width: 90px;
+height: 40px;
+color: #555;
+font-size: 16px;
+font-weight: 600;
+}
+.form-input{
+    height:40px;
+    width:500px;
+    font-size: 15px;
+}
+.phoneNumber{
+    width:340px;
+}
+.tipMsg{
+   font-size: 15px;
+    padding: 0 0 5px 95px;
+}
+.phonetip{
+    color: #6f7372;
+}
+.codetip{
+    color:#4A89DC;
+}
+.phoneCode{
+   display: inline-block;
+width: 145px;
+margin: 0 0 0px 15px;
+font-size: 17px;
+height: 43px;
+background-color: #D2D2D2;
+line-height: 44px;
+text-align:center;
+color:#444;
+cursor: pointer;
+}
+.fromcontent{
+    height: 45px;
+}
+.acceptrule>a{
+text-decoration: none;
+color:#4A89DC;
+}
+.formtool{
+    padding-left: 95px;
+    margin-top: 40px;
+}
+.regist-submit{
+    background-color: #FC6E51;
+    border:none;
+    width: 170px;
+    height: 50px;
+    color:#fff;
+    font-size: 17px;
+    font-weight:600;
+    text-align:center;
+    cursor:pointer;
+    transition:300ms all;
+}
+.regist-submit:hover{
+    background-color: #F0593A;
+}
+.completeTip{
+ width: 700px;
+height: 120px;
+box-shadow: 0 0 2px #b3d465;
+border: 1px solid #b3d465;
+background-color: #f5fae6;
+margin: 0 auto;
+text-align: center;
+}
+.compl_top{
+   font-size: 17px;
+padding: 10px 0 10px;
+}
+.compl_mid,.compl_bot{
+    font-size:14px;
+    margin-bottom: 5px;
+}
+.compl_top_>div{
+    display: inline-block;
+    height:46px;
+    line-height:46px;
+    float: left;
+}
+.compl_top_{
+    width: 330px;
+margin: 0 auto;
+height: 46px;
+}
+.suc-words{
+    font-size: 21px;
+    margin-left: 5px;
+}
+.login-name{
+    color:#FFB03B;
+    margin: 0 5px;
+    font-weight:600;
+}
+.toSpace{
+    text-decoration: none;
+    COLOR:#1D61F0;
+}
+.toSpace:hover{
+    color:#0D09A0;
+}
+.userTip{
+    width: 700px;
+height: 250px;
+border: 1px solid #dfdfdf;
+margin: 20px auto 0;
+}
+.userTitle{
+    height: 40px;
+    padding-left: 20px;
+    background-color: #f3f3f3;
+    color:#444;
+    font-size: 16px;
+    line-height: 40px;
+}
+.userTip_mid{
+    text-align: center;
+padding: 15px 0 15px 0;
+}
+.userTip_mid>a{
+    text-decoration: none;
+    width: 170px;
+    height: 50px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    font-weight: 600;
+    font-size:16px;
+    display: INLINE-BLOCK;
+}
+.pub-need{
+    background-color: #8CC152;
+    margin-right: 45px;
+    transition:all 300ms;
+}
+.pub-need:hover{
+    background-color:#7EB641;
+}
+.pub-item{
+  background-color: #FFB03B;
+   transition:all 300ms;
+}
+.pub-item:hover{
+  background-color: #F09E23;
+}
+.userTip_bot{
+    width: 630px;
+height: 80px;
+margin: 0 auto;
+border: 1px solid #b3d465;
+box-shadow: 0 0 2px #b3d465;
+background-color: #f5fae6;
+}
+.userTip-msg-content{
+  padding: 20px 0 5px 15px;
+font-size: 12px;
+}
+.userTip-msg-content>img{
+    margin-right:20px;
+}
+.userTip-action{
+   padding: 10px 0 10px 47px;
+font-size: 15px;
+}
+.userTip-action>a{
+    text-decoration: none;
+    color:#1D61F0;
+}
+.userTip-action>a:hover{
+    color:#0D09A0;
+}
+.waitcode{
+    cursor:text;
+    color:#fff;
+    font-size:15px;
+}
+.errMsg{
+    color:#f46;
+    font-size: 14px;
+    padding: 0 0 5px 95px;
+}
+.title-active{
+    color: #4A89DC;
+}
+.form-select{
+    width: 512px;
+font-weight: 600;
+color: #555;
+}
+.modi-form{
+	cursor:pointer;
+}

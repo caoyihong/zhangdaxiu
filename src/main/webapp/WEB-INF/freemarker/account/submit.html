@@ -1,0 +1,252 @@
+<#-- 全局变量 --> <#global ctx="${(ctp.contextPath)!''}">
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset =UTF-8">
+<title>注册_01</title>
+<link href="${ctx}/static/styles/common.css" rel="stylesheet" type="text/css" /> 
+<link href="${ctx}/static/styles/regist.css" rel="stylesheet" type="text/css" />
+<script src="${ctx}/static/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/special-efficacy.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/function.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/util.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/jquery.luara.0.0.1.min.js"></script>
+</head>
+<body>
+    <div class="regist-container">
+        <div class="logo-bar"><a href="${ctx}/" target="_blank" class="logo-img"><img src="/showimg?url=images/icon-images/logo.png"  class="logo"></a></div>
+    <div class="registbox">
+		<input type="hidden" id="formToken" name="formToken" value="${formToken}" />
+        <div class="regist-step1">
+            <div class="regist-title">
+                <div class="free-title"><s class="left-corner"><i></i></s>免费注册账号</div>    
+             <div class="login-link">已经有帐号了?直接<a href="/login" class="link">登录</a></div>
+            </div>
+            <div class="step-sign">
+                <div class="step-img"><img src="/showimg?url=images/icon-images/step-sign.png"/></div>
+                <div class="step-name clearfix">
+                    <div>选择你的身份</div>
+                    <div>填写注册信息</div>
+                    <div>注册成功</div>
+                </div>
+            </div>
+            <div class="role-box clearfix">
+                <div class="role"><div  target="normaluser" class="modi-form"><img src="/showimg?url=images/icon-images/headlogo1.png" alt=""></div><div class="rolename">普通用户</div></div>
+                <div class="role"><div  target="bridgeuser" class="modi-form"><img src="/showimg?url=images/icon-images/headlogo2.png" alt=""></div><div class="rolename">中介机构用户</div></div>
+                <div class="role"><div  target="companyuser" class="modi-form"><img src="/showimg?url=images/icon-images/headlogo3.png" alt=""></div><div class="rolename">企业用户</div></div>
+            </div>
+            <div class="formbox">
+                <div class="normaluser">
+                    <form class="normal-form">
+                        <div>
+                            <div class="formtitle">用户名</div>
+                            <div class="formcontent"><input type="text" class="form-input check-name" name="name" name_registed="false" placeholder="给自己取一个昵称吧~"/></div>
+                        </div>
+                         <div class="errMsg name-err"></div>
+                        <div>
+                            <div class="formtitle">手机号</div>
+                            <div class="formcontent">
+                                <input type="text" class="form-input phoneNumber check-phone" name="phone" phone_registed="false"/><a class="phoneCode">发送验证短信</a>
+                            </div>
+                        </div>
+                         <div class="errMsg phone-err"></div>
+                        <div class="tipMsg phonetip">非中国大陆用户输入手机号码请增加区域前缀,如:香港:+8526*******</div>
+                        <div>
+                            <div class="formtitle">短信验证码</div>
+                            <div class="formcontent">
+                                <input type="text" class="form-input check-code" name="phonecode"/>
+                            </div>
+                        </div>
+                        <div class="errMsg code-err"></div>
+                        <div class="tipMsg codetip">此手机号同时作为知峰网帐号的绑定手机</div>
+                         <div>
+                            <div class="formtitle">所在园区</div>
+                            <div class="formcontent"><select class="form-input " style="width:512px ! important;color:#666;" name="park">
+                                <option value="园区一" checked>园区一</option>
+                                <option value="园区二">园区二</option>
+                                <option value="园区三">园区三</option>
+                                <option value="园区四">园区四</option>
+                                <option value="园区五">园区五</option>
+                            </select></div>
+                        </div>
+                         <div class="errMsg"></div>
+                        <div>
+                            <div class="formtitle">密码</div>
+                            <div class="formcontent">
+                                <input type="password" class="form-input check-pass" name="password" />
+                            </div>
+                        </div>
+                        <div class="errMsg pass-err"></div>
+                        <div>
+                            <div class="formtitle">密码确认</div>
+                            <div class="formcontent">
+                                <input type="password" class="form-input check-passrepeat" name="confirmpass"/>
+                            </div>
+                        </div>
+                         <div class="errMsg passrepeat-err"></div>
+                         <div class="tipMsg acceptrule"><input type="checkbox" class="check-accept" id="accept-rule2" value="0"/><label for="accept-rule2">我同意</label><a href="zhifengrule.html" target="_blank">《知峰网用户注册协议》</a></div>
+                        <div class="errMsg accept-err"></div>
+                         <div class="formtool">
+                             <input type="button" class="regist-submit normalUser_sub" value="注册">
+                         </div>
+                    </form>
+
+                </div>
+                <div class="bridgeuser">
+                     <form class="bridge-form">
+                        <div>
+                            <div class="formtitle">用户名</div>
+                            <div class="formcontent"><input type="text" class="form-input check-name" name="name" name_registed="false" placeholder="给自己取一个昵称吧~"/></div>
+                        </div>
+                         <div class="errMsg name-err"></div>
+                         <div>
+                            <div class="formtitle">身份选择</div>
+                            <div class="formcontent">
+	                            <select type="text" class="form-input form-select" name="identity" id="identity">
+	                                <option value="1" checked>律师</option>
+	                                <option value="2">评估师</option>
+	                                <option value="3">司法鉴定人</option>
+	                                <option value="4">商标代理人</option>
+	                                <option value="5">专利代理</option>
+	                            </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="formtitle">手机号</div>
+                            <div class="formcontent">
+                                <input type="text" class="form-input phoneNumber check-phone" name="phone" phone_registed="false"/><a class="phoneCode">发送验证短信</a>
+                            </div>
+                        </div>
+                         <div class="errMsg phone-err"></div>
+                        <div class="tipMsg phonetip">非中国大陆用户输入手机号码请增加区域前缀,如:香港:+8526*******</div>
+                        <div>
+                            <div class="formtitle">短信验证码</div>
+                            <div class="formcontent">
+                                <input type="text" class="form-input check-code" name="phonecode"/>
+                            </div>
+                        </div>
+                        <div class="errMsg code-err"></div>
+                        <div class="tipMsg codetip">此手机号同时作为知峰网帐号的绑定手机</div>
+                   
+                        <div>
+                            <div class="formtitle">密码</div>
+                            <div class="formcontent">
+                                <input type="password" class="form-input check-pass" name="password"/>
+                            </div>
+                        </div>
+                        <div class="errMsg pass-err"></div>
+                        <div>
+                            <div class="formtitle">密码确认</div>
+                            <div class="formcontent">
+                                <input type="password" class="form-input check-passrepeat" name="confirmpass" />
+                            </div>
+                        </div>
+                         <div class="errMsg passrepeat-err"></div>
+                         <div class="tipMsg acceptrule"><input type="checkbox" class="check-accept" id="accept-rule" value="0"/><label for="accept-rule">我同意</label><a href="zhifengrule.html" target="_blank">《知峰网用户注册协议》</a></div>
+                        <div class="errMsg accept-err"></div>
+                         <div class="formtool">
+                             <input type="button" class="regist-submit bridgeUser_sub" value="注册">
+                         </div>
+                    </form>
+                </div>
+                <div class="companyuser">
+                     <form class="company-form">
+                        <div>
+                            <div class="formtitle">公司全称</div>
+                            <div class="formcontent">
+                                <input type="text" class="form-input check-name-company" name="name" name_registed="false" placeholder="请输入与公司营业执照一致的公司全称,审核通过后不可更改"/>
+                            </div>
+                        </div>
+                        <div class="errMsg name-err"></div>
+                        <div>
+                            <div class="formtitle">所属行业</div>
+                            <div class="formcontent">
+                                <input type="text" class="form-input check-workroad" name="industry" />
+                            </div>
+                        </div>
+                        <div class="errMsg workroad-err"></div>
+                        <div>
+                            <div class="formtitle">联系电话</div>
+                            <div class="formcontent">
+                                <input type="text" class="form-input phoneNumber check-phone" name="phone" phone_registed="false"/><a class="phoneCode">发送验证短信</a>
+                            </div>
+                        </div>
+                        <div class="errMsg phone-err"></div>
+                        <div>
+                            <div class="formtitle">短信验证码</div>
+                            <div class="formcontent">
+                                <input type="text" class="form-input check-code" name="phonecode" />
+                            </div>
+                        </div>
+                        <div class="errMsg code-err"></div>
+                        <div class="tipMsg codetip">此手机号同时作为知峰网帐号的绑定手机</div>
+                         <div>
+                            <div class="formtitle">所在园区</div>
+                            <div class="formcontent"><select class="form-input " style="width:512px ! important;color:#666;" name="park">
+                                <option value="园区一" checked>园区一</option>
+                                <option value="园区二">园区二</option>
+                                <option value="园区三">园区三</option>
+                                <option value="园区四">园区四</option>
+                                <option value="园区五">园区五</option>
+                            </select></div>
+                        </div>
+                         <div class="errMsg"></div>
+                        <div>
+                            <div class="formtitle">密码</div>
+                            <div class="formcontent">
+                                <input type="password" class="form-input check-pass" name="password"/>
+                            </div>
+                        </div>
+                        <div class="errMsg pass-err"></div>
+                        <div>
+                            <div class="formtitle">密码确认</div>
+                            <div class="formcontent">
+                                <input type="password" class="form-input check-passrepeat" name="confirmpass"/>
+                            </div>
+                        </div>
+                         <div class="errMsg passrepeat-err"></div>
+                         <div class="tipMsg acceptrule"><input type="checkbox" class="check-accept" id="accept-rule1" value="0"/><label for="accept-rule1">我同意</label><a href="zhifengrule.html" target="_blank">《知峰网用户注册协议》</a></div>
+                         <div class="errMsg accept-err"></div>
+                         <div class="formtool">
+                             <input type="button" class="regist-submit companyUser_sub" value="注册">
+                         </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="registcomplete">
+                <div class="completeTip">
+                    <div class="compl_top"><div class="compl_top_"><div><img src="/showimg?url=images/icon-images/suc.png"></div><div class="suc-words">恭喜你,您已成功注册知峰网!</div></div></div>
+                    <div class="compl_mid">您在知蜂网的登陆账号为:<span class="login-name">13775114013</span>,请妥善保挂您的账号资料。</div>
+                    <div class="compl_bot">现在您可以进入:<a href="/users/account" class="toSpace">我的空间>></a></div>    
+                </div>
+                <div class="userTip">
+                    <div class="userTitle">新手上路</div>
+                    <div class="userTip_mid"><a href="/work/addtask" class="pub-need">立即发布需求</a><a href="/work/addproject" class="pub-item">立即发布项目</a></div>
+                    <div class="userTip_bot">
+                        <div class="userTip-msg">
+                            <div class="userTip-msg-content"><img src="/showimg?url=images/icon-images/laba.png"/>实名认证并完善您的个人信息,有助于我们为您提供更好的个性化服务,知峰网会对您的个人信息加以保密。</div>
+                            <div class="userTip-action"><a href="/users/account">点此认证个人信息>></a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+	 <div class="nmove">
+            <a class="nmove-a1" href="careus.html" target="_blank">关注我们</a>
+            <div class="x-div1"></div>
+            <span class="nmove-span1" >服务热线</span>
+            <div class="x-div2"></div>
+            <span class="nmove-span2">400 888 8888</span>
+            <div class="x-div2"></div>
+            <div class="nmove-div">
+                <a href="joinus.html" target="_blank" >加入我们<span class="iconfont iconfont-woso"></span></a>
+                
+            </div>
+            <a class="nmove-a2" href=""><span style="margin-right:10px;">↑</span><span>回到顶部</span></a>
+        </div>
+</body>
+</html>

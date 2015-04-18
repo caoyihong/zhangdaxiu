@@ -120,24 +120,13 @@
             <value>
             	/ = anon
                 /favicon.ico = anon
-                /showimg = anon
                 /static/** = anon
                 /submit = anon
-                /normalsubmit = anon
-                /agencysubmit = anon
-                /checkuserbyname = anon
-                /checkuserbyphone = anon
-                /checkmessagecode = anon
-                /checkuserexist = anon
                 /common/** = anon
-                /ipservice/** = anon
-                /iplowservice/** = anon
                 /login = anon
-                /agencylogin = anon
-                /addagency = anon
-                /agency/** = authc
-                /users/** = authc
-                /work/** = authc
+                /admin/** = authc
+                /stu/** = authc
+                /teach/** = authc
                 /** = user
             </value>
         </property>

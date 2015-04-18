@@ -28,4 +28,56 @@ public class StuController {
 
 		return "redirect:/";
 	}
+	
+	/**
+	 * 私信管理
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/inbox")
+	public String inbox(HttpServletRequest request) {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+
+		return "student/inboxList";
+	}
+	
+	/**
+	 * 私信管理 - 查看私信、回复私信
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/inbox/{inboxId}")
+	public String viewInbox(HttpServletRequest request) {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+
+		return "student/inbox";
+	}
+	
+	/**
+	 * 作业管理
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/work")
+	public String work(HttpServletRequest request) {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+
+		return "student/inboxList";
+	}
+	
+	/**
+	 * 作业管理 - 作业列表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/work/{workId}")
+	public String viewWork(HttpServletRequest request) {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+
+		return "student/inbox";
+	}
 }

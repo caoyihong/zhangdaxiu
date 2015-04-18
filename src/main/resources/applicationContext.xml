@@ -74,6 +74,7 @@
 			<tx:method name="do*" read-only="false" rollback-for="java.lang.Exception" />
 			<tx:method name="insert*" read-only="false" rollback-for="java.lang.Exception" />
 			<tx:method name="update*" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="delete*" read-only="false" rollback-for="java.lang.Exception" />
 			<!-- 其它方法，只读事务，不回滚 -->
 			<tx:method name="*" propagation="NOT_SUPPORTED" read-only="true" />
 		</tx:attributes>
@@ -82,7 +83,7 @@
 	<aop:config>
 		<!-- 仅拦截service层方法 -->
 		<aop:pointcut id="pc"
-			expression="execution(* com.jingyuan.zhifeng.service.*.*.*(..))" />
+			expression="execution(* com.jingyuan.zhifeng.service.impl.*.*(..))" />
 		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
 	</aop:config>
 	<!-- 

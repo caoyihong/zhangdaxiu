@@ -114,4 +114,8 @@
       salt = #{salt,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+    <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+  	select s.* from student s where s.name = #{0}
+  </select>
 </mapper>

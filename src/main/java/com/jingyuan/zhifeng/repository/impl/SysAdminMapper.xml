@@ -21,18 +21,17 @@
     delete from sys_admin
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.jingyuan.zhifeng.entity.SysAdmin" >
-    insert into sys_admin (id, name, decription, 
+  <insert id="insert" parameterType="com.jingyuan.zhifeng.entity.SysAdmin" 
+   keyProperty="id" useGeneratedKeys="true">
+    insert into sys_admin ( name, decription, 
       password, salt)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{decription,jdbcType=VARCHAR}, 
+    values ( #{name,jdbcType=VARCHAR}, #{decription,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.jingyuan.zhifeng.entity.SysAdmin" >
+  <insert id="insertSelective" parameterType="com.jingyuan.zhifeng.entity.SysAdmin" 
+   keyProperty="id" useGeneratedKeys="true">
     insert into sys_admin
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="name != null" >
         name,
       </if>
@@ -47,9 +46,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
@@ -90,4 +86,26 @@
       salt = #{salt,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByAdmin" parameterType="SysAdmin" resultMap="BaseResultMap">
+  	select s.* from sys_admin s 
+  	<where>
+  		<if test="name != null">
+				name = #{name}
+		</if>
+		<if test="decription != null">
+				and decription = #{decription}
+		</if>
+		<if test="id != null">
+				and id = #{id}
+		</if>
+		<if test="password != null">
+				and password = #{password}
+		</if>
+  	</where>
+  </select>
+  
+  <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+  	select s.* from sys_admin s where s.name = #{0}
+  </select>
 </mapper>

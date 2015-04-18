@@ -16,4 +16,6 @@ public interface TeacherMapper {
     int updateByPrimaryKey(Teacher record);
     
     Teacher selectByTeacher(Teacher teach);
+    
+    Teacher selectByName(String name);
 }

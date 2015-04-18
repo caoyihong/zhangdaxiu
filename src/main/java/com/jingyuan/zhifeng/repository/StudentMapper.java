@@ -1,6 +1,7 @@
 package com.jingyuan.zhifeng.repository;
 
 import com.jingyuan.zhifeng.entity.Student;
+import com.jingyuan.zhifeng.entity.SysAdmin;
 
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +17,6 @@ public interface StudentMapper {
     int updateByPrimaryKey(Student record);
     
     Student selectByStudent(Student stu);
+    
+    Student selectByName(String name);
 }

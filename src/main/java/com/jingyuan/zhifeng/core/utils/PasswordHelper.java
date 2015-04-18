@@ -6,9 +6,9 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Component;
 
-import com.jingyuan.zhifeng.entity.ZFAgency;
-import com.jingyuan.zhifeng.entity.ZFAgencyemployee;
-import com.jingyuan.zhifeng.entity.ZFUser;
+import com.jingyuan.zhifeng.entity.Student;
+import com.jingyuan.zhifeng.entity.SysAdmin;
+import com.jingyuan.zhifeng.entity.Teacher;
 @Component
 public class PasswordHelper {
 
@@ -29,55 +29,55 @@ public class PasswordHelper {
     }
 
     /**
-     * 个人或企业用户加密
+     * 学生用户加密
      * @param AMUser
      */
-    public void encryptPasswordZFUser(ZFUser AMUser) {
+    public void encryptPasswordZFUser(Student stu) {
 
 //    	设置一个自动生成的盐
-        AMUser.setSalt(randomNumberGenerator.nextBytes().toHex());
+    	stu.setSalt(randomNumberGenerator.nextBytes().toHex());
 //		根据明文密码、身份认证盐、加密算法、加密次数来算出加密的密码，与CredentialMatcher一致
         String newPassword = new SimpleHash(
                 algorithmName,
-                AMUser.getPassword(),
-                ByteSource.Util.bytes(AMUser.getCredentialsSalt()),
+                stu.getPass(),
+                ByteSource.Util.bytes(stu.getCredentialsSalt()),
                 hashIterations).toHex();
 
-        AMUser.setPassword(newPassword);
+        stu.setPass(newPassword);
     }
     
     /**
-     * 中介机构从业人员加密
+     * 老师加密
      * @param AMUser
      */
-    public void encryptPasswordZFA(ZFAgencyemployee AMUser) {
+    public void encryptPasswordZFA(Teacher teach) {
 
 //    	设置一个自动生成的盐
-        AMUser.setSalt(randomNumberGenerator.nextBytes().toHex());
+    	teach.setSalt(randomNumberGenerator.nextBytes().toHex());
 //		根据明文密码、身份认证盐、加密算法、加密次数来算出加密的密码，与CredentialMatcher一致
         String newPassword = new SimpleHash(
                 algorithmName,
-                AMUser.getPassword(),
-                ByteSource.Util.bytes(AMUser.getCredentialsSalt()),
+                teach.getPassword(),
+                ByteSource.Util.bytes(teach.getCredentialsSalt()),
                 hashIterations).toHex();
 
-        AMUser.setPassword(newPassword);
+        teach.setPassword(newPassword);
     }
     /**
-     * 中介机构加密
+     * 管理员加密
      * @param AMUser
      */
-    public void encryptPasswordZFAgency(ZFAgency agency) {
+    public void encryptPasswordZFAgency(SysAdmin admin) {
     	
 //    	设置一个自动生成的盐
-    	agency.setSalt(randomNumberGenerator.nextBytes().toHex());
+    	admin.setSalt(randomNumberGenerator.nextBytes().toHex());
 //		根据明文密码、身份认证盐、加密算法、加密次数来算出加密的密码，与CredentialMatcher一致
     	String newPassword = new SimpleHash(
     			algorithmName,
-    			agency.getPassword(),
-    			ByteSource.Util.bytes(agency.getCredentialsSalt()),
+    			admin.getPassword(),
+    			ByteSource.Util.bytes(admin.getCredentialsSalt()),
     			hashIterations).toHex();
     	
-    	agency.setPassword(newPassword);
+    	admin.setPassword(newPassword);
     }
 }

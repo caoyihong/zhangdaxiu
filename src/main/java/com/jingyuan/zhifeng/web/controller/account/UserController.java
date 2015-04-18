@@ -70,18 +70,18 @@ public class UserController extends BaseController {
 		}
 		String name = admin.getName();
 		String password = admin.getPassword();
-		if (StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(password)) {
+		String des = admin.getDecription();
+		if (StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(password) && StringUtils.isNoneEmpty(des)) {
 			
-			SysAdmin user2 = (SysAdmin) userService.isExistName(name,GlobalStatic.SYSADMIN);
-			if (user2 != null) {
-				
-				return "error";
+			if (userService.isExistUser(name, password, UserType.SYSADMIN.getType()) != null) {
+				request.setAttribute("errorMsg", "用户已存在");
+				return "account/submit";
 			}
 
 			// 新建用户登录信息token
 			UsernamePasswordToken token = new UsernamePasswordToken(
-					user2.getName() + "," + formType, user.getPassword());
-			userService.insertPersonUser(user);
+					admin.getName() + "," + UserType.SYSADMIN.getType(), admin.getPassword());
+			userService.insertAdmin(admin);
 
 			// 手动登录
 			s.login(token);
@@ -93,7 +93,7 @@ public class UserController extends BaseController {
 			return "success";
 		}
 
-		return "error";
+		return "account/submit";
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package com.jingyuan.zhifeng.entity;
 
+
 public class SysAdmin {
     private Integer id;
 
@@ -11,9 +12,18 @@ public class SysAdmin {
 
     private String salt;
 
+    public SysAdmin(){}
     public SysAdmin(String name, String password) {
 		this.name = name;
 		this.password = password;
+	}
+    
+	public SysAdmin(String name, String password,
+			String decription, String salt) {
+		this.name = name;
+		this.password = password;
+		this.decription = decription;
+		this.salt = salt;
 	}
 
 	public Integer getId() {

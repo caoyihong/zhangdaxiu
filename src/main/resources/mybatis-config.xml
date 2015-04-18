@@ -9,7 +9,13 @@
         <setting name="aggressiveLazyLoading" value="false"/>
 	</settings>
 	<typeAliases>
-		
+		<typeAlias alias="Class" type="com.jingyuan.zhifeng.entity.Class"/>
+		<typeAlias alias="Inbox" type="com.jingyuan.zhifeng.entity.Inbox"/>
+		<typeAlias alias="Student" type="com.jingyuan.zhifeng.entity.Student"/>
+		<typeAlias alias="StudyDatas" type="com.jingyuan.zhifeng.entity.StudyDatas"/>
+		<typeAlias alias="SysAdmin" type="com.jingyuan.zhifeng.entity.SysAdmin"/>
+		<typeAlias alias="Teacher" type="com.jingyuan.zhifeng.entity.Teacher"/>
+		<typeAlias alias="ClassExample" type="com.jingyuan.zhifeng.entity.ClassExample"/>
 	</typeAliases>
 
 	<plugins>
@@ -22,6 +28,12 @@
 
 	<!-- 指定映射文件 -->
 	<mappers>
+		<mapper resource="com/jingyuan/zhifeng/repository/impl/ClassMapper.xml"/>
+		<mapper resource="com/jingyuan/zhifeng/repository/impl/InboxMapper.xml"/>
+		<mapper resource="com/jingyuan/zhifeng/repository/impl/StudentMapper.xml"/>
+		<mapper resource="com/jingyuan/zhifeng/repository/impl/StudyDatasMapper.xml"/>
+		<mapper resource="com/jingyuan/zhifeng/repository/impl/SysAdminMapper.xml"/>
+		<mapper resource="com/jingyuan/zhifeng/repository/impl/TeacherMapper.xml"/>
 	</mappers>
 	
 </configuration>  

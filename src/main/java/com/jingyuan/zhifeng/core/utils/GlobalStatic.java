@@ -18,6 +18,12 @@ public class GlobalStatic {
 	public static final int Msg_NREAD = 0;
 	public static final int Msg_READ = 1;
 	public static final String SAVED_REQUEST_KEY = "shiroSavedRequest";
-	
+	/**
+	 * 默认验证码参数名称
+	 */
+	public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
+	public static final String FORMTOKEN = "formToken";
+	//上传文件的路径
+	public static final String uploadpath = "C:/zhifeng/";
 
 }

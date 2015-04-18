@@ -1,6 +1,7 @@
 package com.jingyuan.zhifeng.repository;
 
 import com.jingyuan.zhifeng.entity.SysAdmin;
+import com.jingyuan.zhifeng.entity.Teacher;
 
 public interface SysAdminMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +17,6 @@ public interface SysAdminMapper {
     int updateByPrimaryKey(SysAdmin record);
     
     SysAdmin selectByAdmin(SysAdmin admin);
+    
+    SysAdmin selectByName(String name);
 }

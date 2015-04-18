@@ -52,13 +52,17 @@ public class UserServiceImpl implements UserService{
 	public Student isExistStuWithNameAndPass(String name, String pass) {
 		
 		Student stu = studentMapper.selectByName(name);
-		if(stu.getPass().equals(new SimpleHash(
-                "md5",
-                pass,
-                ByteSource.Util.bytes(stu.getCredentialsSalt()),
-                2).toHex()))
+		if(stu != null)
 		{
-			return stu;
+			if(stu.getPass().equals(new SimpleHash(
+	                "md5",
+	                pass,
+	                ByteSource.Util.bytes(stu.getCredentialsSalt()),
+	                2).toHex()))
+			{
+				return stu;
+			}
+			return null;
 		}
 		else
 		{return null;}
@@ -69,29 +73,39 @@ public class UserServiceImpl implements UserService{
 	public Teacher isExistTeachWithNameAndPass(String name, String pass) {
 		
 		Teacher teach = teacherMapper.selectByName(name);
-		if(teach.getPassword().equals(new SimpleHash(
-                "md5",
-                pass,
-                ByteSource.Util.bytes(teach.getCredentialsSalt()),
-                2).toHex()))
+		if(teach != null)
 		{
-			return teach;
+			if(teach.getPassword().equals(new SimpleHash(
+	                "md5",
+	                pass,
+	                ByteSource.Util.bytes(teach.getCredentialsSalt()),
+	                2).toHex()))
+			{
+				return teach;
+			}
+			return null;
 		}
 		else
-		{return null;}
+			return null;
 	}
 
+
+	
 	@Override
 	public SysAdmin isExistAdminWithNameAndPass(String name, String pass) {
 		
 		SysAdmin admin = adminMapper.selectByName(name);
-		if(admin.getPassword().equals(new SimpleHash(
-                "md5",
-                pass,
-                ByteSource.Util.bytes(admin.getCredentialsSalt()),
-                2).toHex()))
+		if(admin != null)
 		{
-			return admin;
+			if(admin.getPassword().equals(new SimpleHash(
+	                "md5",
+	                pass,
+	                ByteSource.Util.bytes(admin.getCredentialsSalt()),
+	                2).toHex()))
+			{
+				return admin;
+			}
+			return null;
 		}
 		else
 		{return null;}
@@ -117,6 +131,19 @@ public class UserServiceImpl implements UserService{
 	public void deleteAdmin(Integer adminId) {
 		
 		adminMapper.deleteByPrimaryKey(adminId);
+	}
+
+	@Override
+	public Object findUserByNameAndType(String name, int type) {
+		
+		Object user = null;
+		switch(type)
+		{
+		case 0 : user = studentMapper.selectByName(name);
+		case 1 : user = teacherMapper.selectByName(name);
+		case 2 : user = adminMapper.selectByName(name);
+		}
+		return user;
 	}
 
 }

@@ -7,6 +7,13 @@ import com.jingyuan.zhifeng.entity.Teacher;
 public interface UserService {
 
 	/**
+	 * 根据姓名和类型查询用户
+	 * @param name
+	 * @param type
+	 * @return
+	 */
+	public Object findUserByNameAndType(String name,int type);
+	/**
 	 * 根据用户姓名、密码和类型查询用户
 	 * @param name
 	 * @param pass 需要手动加密与数据库进行比对

@@ -90,9 +90,9 @@ public class UserController extends BaseController {
 					.getPrincipal();
 			logger.info(currentUser.toString());
 			session.setAttribute("currentUser", currentUser);
-			return "success";
+			return "redirect:/admin/index";
 		}
-
+		request.setAttribute("errorMsg", "表单信息不全");
 		return "account/submit";
 	}
 
@@ -167,7 +167,7 @@ public class UserController extends BaseController {
 		UserRealm.ShiroUser currentUser = (UserRealm.ShiroUser) SecurityUtils
 				.getSubject().getPrincipal();
 		session.setAttribute("currentUser", currentUser);
-		String successUrl = "/";
+		String successUrl = null;
 		SavedRequest savedRequest = (SavedRequest) session
 				.getAttribute(GlobalStatic.SAVED_REQUEST_KEY);
 		if (savedRequest != null
@@ -175,13 +175,13 @@ public class UserController extends BaseController {
 						AccessControlFilter.GET_METHOD)) {
 			successUrl = savedRequest.getRequestUrl();
 
-			if (successUrl == null || !chekSavedUrl(successUrl)) {
-				successUrl = UserType.getUrl(currentUser.getType()) + "/index";
-			}
-
+		}
+		if (successUrl == null || !chekSavedUrl(successUrl)) {
+			successUrl = UserType.getUrl(currentUser.getType()) + "/index";
 		}
 		request.removeAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM);
 		request.removeAttribute(FormAuthenticationFilter.DEFAULT_PASSWORD_PARAM);
+		System.out.println(successUrl);
 		return redirect + successUrl;
 	}
 

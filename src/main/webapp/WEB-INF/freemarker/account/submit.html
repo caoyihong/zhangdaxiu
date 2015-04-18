@@ -1,3 +1,4 @@
+<#-- 全局变量 --> <#global ctx="${(ctp.contextPath)!''}">
 <!DOCTYPE html>
 
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -12,7 +13,7 @@
 
 	<meta charset="utf-8" />
 
-	<title>Metronic | Login Page</title>
+	<title>注册</title>
 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
@@ -71,25 +72,24 @@
 		<!-- BEGIN LOGIN FORM -->
 
 
-		
 
-		<form class="form-vertical login-form" action="index.html">
 
-			<h3 class="">Sign Up</h3>
+		<form class="form-vertical login-form" action="/submit" method="post">
 
-			<p>Enter your account details below:</p>
+			<h3 class="">注册</h3>
 
+			<p>填写您的基本信息:</p>
+			<#if errorMsg?exists><p>${errorMsg}</p></#if>
 			<div class="control-group">
 
-				<label class="control-label visible-ie8 visible-ie9">Username</label>
+				<label class="control-label visible-ie8 visible-ie9">用户名</label>
 
 				<div class="controls">
 
 					<div class="input-icon left">
 
-						<i class="icon-user"></i>
-
-						<input class="m-wrap placeholder-no-fix" type="text" placeholder="Username" name="username"/>
+						<i class="icon-user"></i> <input class="m-wrap placeholder-no-fix"
+							type="text" placeholder="用户名" name="name" />
 
 					</div>
 
@@ -99,33 +99,15 @@
 
 			<div class="control-group">
 
-				<label class="control-label visible-ie8 visible-ie9">Password</label>
+				<label class="control-label visible-ie8 visible-ie9">密码</label>
 
 				<div class="controls">
 
 					<div class="input-icon left">
 
-						<i class="icon-lock"></i>
-
-						<input class="m-wrap placeholder-no-fix" type="password" id="register_password" placeholder="Password" name="password"/>
-
-					</div>
-
-				</div>
-
-			</div>
-
-			<div class="control-group">
-
-				<label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
-
-				<div class="controls">
-
-					<div class="input-icon left">
-
-						<i class="icon-ok"></i>
-
-						<input class="m-wrap placeholder-no-fix" type="password" placeholder="Re-type Your Password" name="rpassword"/>
+						<i class="icon-lock"></i> <input class="m-wrap placeholder-no-fix"
+							type="password" id="register_password" placeholder="密码"
+							name="password" />
 
 					</div>
 
@@ -137,15 +119,15 @@
 
 				<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
 
-				<label class="control-label visible-ie8 visible-ie9">Email</label>
+				<label class="control-label visible-ie8 visible-ie9">职务介绍</label>
 
 				<div class="controls">
 
 					<div class="input-icon left">
 
-						<i class="icon-envelope"></i>
-
-						<input class="m-wrap placeholder-no-fix" type="text" placeholder="Email" name="email"/>
+						<i class="icon-envelope"></i> <input
+							class="m-wrap placeholder-no-fix" type="text" placeholder="职务介绍"
+							name="decription" />
 
 					</div>
 
@@ -153,35 +135,20 @@
 
 			</div>
 
-			<div class="control-group">
-
-				<div class="controls">
-
-					<label class="checkbox">
-
-					<input type="checkbox" name="tnc"/> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-
-					</label>  
-
-					<div id="register_tnc_error"></div>
-
-				</div>
-
-			</div>
-
 			<div class="form-actions">
 
-				<button id="register-back-btn" type="button" class="btn">
+				<button id="register-back-btn" type="reset" class="btn">
 
-				<i class="m-icon-swapleft"></i>  Back
+					<i class="m-icon-swapleft"></i> 取消
 
 				</button>
 
-				<button type="submit" id="register-submit-btn" class="btn green pull-right">
+				<button type="submit" id="register-submit-btn"
+					class="btn green pull-right">
 
-				Sign Up <i class="m-icon-swapright m-icon-white"></i>
+					注册 <i class="m-icon-swapright m-icon-white"></i>
 
-				</button>            
+				</button>
 
 			</div>
 
@@ -195,11 +162,6 @@
 
 	<!-- BEGIN COPYRIGHT -->
 
-	<div class="copyright">
-
-		2016 &copy; Metronic. 张大修.
-
-	</div>
-	<!-- END PAGE LEVEL SCRIPTS --> 
-
+	<div class="copyright">2016 &copy; Metronic. 张大修.</div>
+	<!-- END PAGE LEVEL SCRIPTS -->
 </html>

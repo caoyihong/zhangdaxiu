@@ -72,7 +72,7 @@ public class UserRealm extends AuthorizingRealm{
 		Student student = null;
 		Teacher tach = null;
 		SysAdmin admin = null;
-		Object user = userService.isExistUser(values[0], null, type);
+		Object user = userService.findUserByNameAndType(values[0], type);
 		if(user == null)
 		{
 			throw new UnknownAccountException("没找到用户名");
@@ -125,7 +125,6 @@ public class UserRealm extends AuthorizingRealm{
 		
 		public ShiroUser(Integer id, String name,int type)
 		{
-			super();
 			this.id = id;
 			this.name = name;
 			this.type = type;

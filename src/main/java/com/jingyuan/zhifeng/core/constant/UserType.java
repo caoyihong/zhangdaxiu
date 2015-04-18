@@ -29,9 +29,9 @@ public enum UserType {
 		String url = null;
 		switch(type)
 		{
-		case 0: url = "/stu";
-		case 1: url = "/teach";
-		case 2: url = "/admin";
+		case 0: url = "/stu";break;
+		case 1: url = "/teach";break;
+		case 2: url = "/admin";break;
 		default : url = "/";
 		}
 		return url;

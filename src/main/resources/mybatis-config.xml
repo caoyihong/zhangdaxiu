@@ -9,23 +9,7 @@
         <setting name="aggressiveLazyLoading" value="false"/>
 	</settings>
 	<typeAliases>
-		<typeAlias alias="ZFAddress" type="com.jingyuan.zhifeng.entity.ZFAddress" />
-		<typeAlias alias="ZFAgency" type="com.jingyuan.zhifeng.entity.ZFAgency" />
-		<typeAlias alias="ZFAgencyemployee"
-			type="com.jingyuan.zhifeng.entity.ZFAgencyemployee" />
-		<typeAlias alias="ZFIndustryc" type="com.jingyuan.zhifeng.entity.ZFIndustryc" />
-		<typeAlias alias="ZFNeed" type="com.jingyuan.zhifeng.entity.ZFNeed" />
-		<typeAlias alias="ZFUser" type="com.jingyuan.zhifeng.entity.ZFUser" />
-		<typeAlias alias="ZFAddressExample"
-			type="com.jingyuan.zhifeng.entity.ZFAddressExample" />
-		<typeAlias alias="ZFSkillc" type="com.jingyuan.zhifeng.entity.ZFSkillc" />
-		<typeAlias alias="ZFOrder" type="com.jingyuan.zhifeng.entity.ZFOrder" />
-		<typeAlias alias="ZFStore" type="com.jingyuan.zhifeng.entity.ZFStore" />
-		<typeAlias alias="ZFProblem" type="com.jingyuan.zhifeng.entity.ZFProblem" />
-		<typeAlias alias="ZFApply" type="com.jingyuan.zhifeng.entity.ZFApply" />
-		<typeAlias alias="ZFMessage" type="com.jingyuan.zhifeng.entity.ZFMessage" />
-		<typeAlias alias="ZFNews" type="com.jingyuan.zhifeng.entity.ZFNews" />
-		<typeAlias alias="ZFInvest" type="com.jingyuan.zhifeng.entity.ZFInvest" />
+		
 	</typeAliases>
 
 	<plugins>
@@ -38,21 +22,6 @@
 
 	<!-- 指定映射文件 -->
 	<mappers>
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFAddressMapper.xml" />
-		<mapper
-			resource="com/jingyuan/zhifeng/repository/mapper/ZFAgencyemployeeMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFAgencyMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFIndustrycMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFNeedMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFUserMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFOrderMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFStoreMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFSkillcMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFProblemMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFApplyMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFMessageMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFNewsMapper.xml" />
-		<mapper resource="com/jingyuan/zhifeng/repository/mapper/ZFInvestMapper.xml" />
 	</mappers>
 	
 </configuration>  

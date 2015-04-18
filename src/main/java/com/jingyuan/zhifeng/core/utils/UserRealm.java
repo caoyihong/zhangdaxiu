@@ -1,6 +1,7 @@
 package com.jingyuan.zhifeng.core.utils;
 
 import java.io.Serializable;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -17,15 +18,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.base.Objects;
-import com.jingyuan.zhifeng.entity.ZFAgency;
-import com.jingyuan.zhifeng.entity.ZFAgencyemployee;
-import com.jingyuan.zhifeng.entity.ZFUser;
-import com.jingyuan.zhifeng.service.ZFUserService;
+import com.jingyuan.zhifeng.core.constant.UserType;
+import com.jingyuan.zhifeng.entity.Student;
+import com.jingyuan.zhifeng.entity.SysAdmin;
+import com.jingyuan.zhifeng.entity.Teacher;
+import com.jingyuan.zhifeng.service.UserService;
 
 public class UserRealm extends AuthorizingRealm{
 	public Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
-	private ZFUserService userService;
+	private UserService userService;
 
 //	权限认证时回调
 	@Override
@@ -40,16 +42,20 @@ public class UserRealm extends AuthorizingRealm{
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		ShiroUser user = (ShiroUser)principals.getPrimaryPrincipal();
 		int userId = user.getId();
-		try {
+		/*try {
 			info.addRoles(userService.findRoles(userId, user.getType()));
 			info.addStringPermissions(userService.findPermissions(userId, user.getType()));
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-		}
+		}*/
 		return info;
 	}
 
-//	身份认证时回调
+	/**
+	 * 身份认证时回调
+	 * 老师、学生、管理员登录统一调用该接口
+	 * 通过type区分 0-学生，1-老师，2-管理员
+	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token)
@@ -63,39 +69,39 @@ public class UserRealm extends AuthorizingRealm{
 //		value为用户名和type的连接体，例如：liutao,1
 		String[] values = value.split(",");
 		int type = Integer.valueOf(values[1]);
-		ZFUser normalUser = null;
-		ZFAgencyemployee agencye = null;
-		ZFAgency agency = null;
+		Student student = null;
+		Teacher tach = null;
+		SysAdmin admin = null;
 		Object user = userService.isExistUser(values[0], null, type);
 		if(user == null)
 		{
 			throw new UnknownAccountException("没找到用户名");
 		}
 		SimpleAuthenticationInfo authenticationInfo = null;
-		if(type == 2)//中介机构用户
+		if(type == UserType.STUDENT.getType())//中介机构用户
 		{
-			agencye = (ZFAgencyemployee)user;
+			student = (Student)user;
 			authenticationInfo = new SimpleAuthenticationInfo(
-					new ShiroUser(agencye.getId(),agencye.getName(),agencye.getHead(),GlobalStatic.USER_AGENCYE,agencye.getPhone(),agencye.getEmail(),agencye.getStatus()),
-					agencye.getPassword(),
-					ByteSource.Util.bytes(agencye.getCredentialsSalt()),
+					new ShiroUser(student.getId(),student.getName(),UserType.STUDENT.getType()),
+					student.getPass(),
+					ByteSource.Util.bytes(student.getCredentialsSalt()),
 					getName()
 					);
-		}else if (type == 3) {	//新增的中介机构登陆
-			agency = (ZFAgency) user;
+		}else if (type == UserType.TEACHER.getType()) {	//新增的中介机构登陆
+			tach = (Teacher) user;
 			authenticationInfo = new SimpleAuthenticationInfo(
-					new ShiroUser(agency.getId(), agency.getName(), agency.getHead(), GlobalStatic.USER_AGENCY, agency.getPhone(), agency.getEmail(), agency.getStatus()),
-					agency.getPassword(),
-					ByteSource.Util.bytes(agency.getCredentialsSalt()),
+					new ShiroUser(tach.getId(), tach.getName(),UserType.TEACHER.getType()),
+					tach.getPassword(),
+					ByteSource.Util.bytes(tach.getCredentialsSalt()),
 					getName()
 					);
 		}else//1企业用户和0个人用户
 		{
-			normalUser = (ZFUser)user;
+			admin = (SysAdmin)user;
 			authenticationInfo = new SimpleAuthenticationInfo(
-					new ShiroUser(normalUser.getId(),normalUser.getName(),normalUser.getHead(),normalUser.getType(),normalUser.getPhone(),normalUser.getEmail(),normalUser.getStatus()),
-					normalUser.getPassword(),
-					ByteSource.Util.bytes(normalUser.getCredentialsSalt()),
+					new ShiroUser(admin.getId(),admin.getName(),UserType.SYSADMIN.getType()),
+					admin.getPassword(),
+					ByteSource.Util.bytes(admin.getCredentialsSalt()),
 					getName()
 					);
 		}
@@ -112,28 +118,17 @@ public class UserRealm extends AuthorizingRealm{
 //		登录用户的id
 		public Integer id;
 //		登录用户名字
-		public String username;
-
-		public String userImage;
-		
+		public String name;
+//		用户类型 0-学生，1-老师，2-管理员
 		public int type;
 		
-		public String phone;
 		
-		public String email;
-//		实名认证状态： 0等待认证，1认证成功，2冻结  是否使用待定
-		public int status;
-		
-		public ShiroUser(Integer id, String username,String userImage,int type,String phone,String email,int status)
+		public ShiroUser(Integer id, String name,int type)
 		{
 			super();
 			this.id = id;
-			this.userImage = userImage;
-			this.username = username;
+			this.name = name;
 			this.type = type;
-			this.phone = phone;
-			this.email = email;
-			this.status = status;
 		}
 		public Integer getId()
 		{
@@ -143,21 +138,14 @@ public class UserRealm extends AuthorizingRealm{
 		{
 			this.id = id;
 		}
-		public String getUsername()
+		public String getName()
 		{
-			return username;
+			return name;
 		}
-		public void setUsername(String username)
+		public void setName(String name)
 		{
-			this.username = username;
+			this.name = name;
 		}
-		public String getUserImage() {
-			return userImage;
-		}
-		public void setUserImage(String userImage) {
-			this.userImage = userImage;
-		}
-
 		public int getType() {
 			return type;
 		}
@@ -166,29 +154,13 @@ public class UserRealm extends AuthorizingRealm{
 			this.type = type;
 		}
 
-		public String getPhone() {
-			return phone;
-		}
-
-		public void setPhone(String phone) {
-			this.phone = phone;
-		}
-
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
-		}
 		/**
 		 * 本函数输出将作为默认的<shiro:principal/>输出.
 		 */
 		@Override
 		public String toString() {
-			return "ShiroUser [id=" + id + ", username=" + username
-					+ ", userImage=" + userImage + ", type=" + type
-					+ ", phone=" + phone + ", email=" + email + "]";
+			return "ShiroUser [id=" + id + ", name=" + name + ", type=" + type
+					+ "]";
 		}
 
 		/**
@@ -196,7 +168,7 @@ public class UserRealm extends AuthorizingRealm{
 		 */
 		@Override
 		public int hashCode() {
-			return Objects.hashCode(username);
+			return Objects.hashCode(name);
 		}
 
 		/**
@@ -214,11 +186,11 @@ public class UserRealm extends AuthorizingRealm{
 				return false;
 			}
 			ShiroUser other = (ShiroUser) obj;
-			if (username == null) {
-				if (other.username != null) {
+			if ( name == null) {
+				if (other.name != null) {
 					return false;
 				}
-			} else if (!username.equals(other.username)) {
+			} else if (!name.equals(other.name)) {
 				return false;
 			}
 			return true;

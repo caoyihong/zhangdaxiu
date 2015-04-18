@@ -7,9 +7,11 @@
     <result column="classid" property="classid" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="TINYINT" />
     <result column="startyear" property="startyear" jdbcType="INTEGER" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, classid, sex, startyear
+    id, name, classid, sex, startyear, pass, salt
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,9 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.jingyuan.zhifeng.entity.Student" >
     insert into student (id, name, classid, 
-      sex, startyear)
+      sex, startyear, pass, 
+      salt)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{classid,jdbcType=INTEGER}, 
-      #{sex,jdbcType=TINYINT}, #{startyear,jdbcType=INTEGER})
+      #{sex,jdbcType=TINYINT}, #{startyear,jdbcType=INTEGER}, #{pass,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jingyuan.zhifeng.entity.Student" >
     insert into student
@@ -45,6 +49,12 @@
       <if test="startyear != null" >
         startyear,
       </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -61,6 +71,12 @@
       </if>
       <if test="startyear != null" >
         #{startyear,jdbcType=INTEGER},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -79,6 +95,12 @@
       <if test="startyear != null" >
         startyear = #{startyear,jdbcType=INTEGER},
       </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -87,7 +109,9 @@
     set name = #{name,jdbcType=VARCHAR},
       classid = #{classid,jdbcType=INTEGER},
       sex = #{sex,jdbcType=TINYINT},
-      startyear = #{startyear,jdbcType=INTEGER}
+      startyear = #{startyear,jdbcType=INTEGER},
+      pass = #{pass,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

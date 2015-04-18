@@ -14,4 +14,6 @@ public interface SysAdminMapper {
     int updateByPrimaryKeySelective(SysAdmin record);
 
     int updateByPrimaryKey(SysAdmin record);
+    
+    SysAdmin selectByAdmin(SysAdmin admin);
 }

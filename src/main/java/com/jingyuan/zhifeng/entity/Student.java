@@ -11,7 +11,16 @@ public class Student {
 
     private Integer startyear;
 
-    public Integer getId() {
+    private String pass;
+
+    private String salt;
+
+    public Student(String name, String pass) {
+		this.name = name;
+		this.pass = pass;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -50,4 +59,29 @@ public class Student {
     public void setStartyear(Integer startyear) {
         this.startyear = startyear;
     }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass == null ? null : pass.trim();
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
+    
+	/**
+	 * 获取新盐
+	 * @return
+	 */
+	public String getCredentialsSalt()
+	{
+		return name + salt;
+	}
 }

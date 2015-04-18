@@ -23,7 +23,7 @@ public class AdminController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/")
+	@RequestMapping("/index")
 	public String admin(HttpServletRequest request) {
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();

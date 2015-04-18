@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingyuan.zhifeng.repository.StudyDatasMapper" >
+  <resultMap id="BaseResultMap" type="com.jingyuan.zhifeng.entity.StudyDatas" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="techer_id" property="techerId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="files" property="files" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, techer_id, content, files
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from study_datas
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from study_datas
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingyuan.zhifeng.entity.StudyDatas" >
+    insert into study_datas (id, techer_id, content, 
+      files)
+    values (#{id,jdbcType=INTEGER}, #{techerId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{files,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jingyuan.zhifeng.entity.StudyDatas" >
+    insert into study_datas
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="techerId != null" >
+        techer_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="files != null" >
+        files,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="techerId != null" >
+        #{techerId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="files != null" >
+        #{files,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingyuan.zhifeng.entity.StudyDatas" >
+    update study_datas
+    <set >
+      <if test="techerId != null" >
+        techer_id = #{techerId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="files != null" >
+        files = #{files,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jingyuan.zhifeng.entity.StudyDatas" >
+    update study_datas
+    set techer_id = #{techerId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      files = #{files,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

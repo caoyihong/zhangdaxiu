@@ -1,5 +1,8 @@
 package com.jingyuan.zhifeng.repository;
 
+import java.util.List;
+import java.util.Map;
+
 import com.jingyuan.zhifeng.entity.Student;
 import com.jingyuan.zhifeng.entity.SysAdmin;
 
@@ -19,4 +22,14 @@ public interface StudentMapper {
     Student selectByStudent(Student stu);
     
     Student selectByName(String name);
+
+    /**
+     * 根据学院、专业、学号查询学生
+     * @param colleage
+     * @param specialty
+     * @param stuId
+     * @return
+     */
+	List<Map<String, String>> selectStus(String colleage, String specialty,
+			Integer stuId);
 }

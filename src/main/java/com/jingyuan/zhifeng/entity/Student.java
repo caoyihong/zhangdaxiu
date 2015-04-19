@@ -20,6 +20,10 @@ public class Student {
 		this.pass = pass;
 	}
 
+	public Student() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getId() {
         return id;
     }

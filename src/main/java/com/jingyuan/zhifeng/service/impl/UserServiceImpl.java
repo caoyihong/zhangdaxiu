@@ -1,5 +1,8 @@
 package com.jingyuan.zhifeng.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +54,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Student isExistStuWithNameAndPass(String name, String pass) {
 		
-		Student stu = studentMapper.selectByName(name);
+		Student stu = findStuByName(name);
 		if(stu != null)
 		{
 			if(stu.getPass().equals(new SimpleHash(
@@ -72,7 +75,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Teacher isExistTeachWithNameAndPass(String name, String pass) {
 		
-		Teacher teach = teacherMapper.selectByName(name);
+		Teacher teach = findTeachByName(name);
 		if(teach != null)
 		{
 			if(teach.getPassword().equals(new SimpleHash(
@@ -94,7 +97,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public SysAdmin isExistAdminWithNameAndPass(String name, String pass) {
 		
-		SysAdmin admin = adminMapper.selectByName(name);
+		SysAdmin admin = findAdminByName(name);
 		if(admin != null)
 		{
 			if(admin.getPassword().equals(new SimpleHash(
@@ -139,11 +142,33 @@ public class UserServiceImpl implements UserService{
 		Object user = null;
 		switch(type)
 		{
-		case 0 : user = studentMapper.selectByName(name);
-		case 1 : user = teacherMapper.selectByName(name);
-		case 2 : user = adminMapper.selectByName(name);
+		case 0 : user = findStuByName(name);
+		case 1 : user = findTeachByName(name);
+		case 2 : user = findAdminByName(name);
 		}
 		return user;
+	}
+
+	@Override
+	public Student findStuByName(String name) {
+		return studentMapper.selectByName(name);
+	}
+
+	@Override
+	public Teacher findTeachByName(String name) {
+		return teacherMapper.selectByName(name);
+	}
+
+	@Override
+	public SysAdmin findAdminByName(String name) {
+		return adminMapper.selectByName(name);
+	}
+
+	@Override
+	public List<Map<String, String>> selectStus(String colleage,
+			String specialty, Integer stuId) {
+		
+		return studentMapper.selectStus(colleage,specialty, stuId);
 	}
 
 }

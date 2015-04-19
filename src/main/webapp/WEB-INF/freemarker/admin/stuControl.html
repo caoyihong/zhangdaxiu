@@ -12,8 +12,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>学生管理模块</title>
-<@h.linkFiles />
+<title>学生管理模块</title> <@h.linkFiles />
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -33,7 +32,7 @@
 				<div class="logo-container">
 					<!-- Website Logo -->
 					<a href="index-2.html" title="Knowledge Base Theme"> <img
-						src="images/logo.png" alt="Knowledge Base Theme">
+						src="${ctx}/static/images/logo.png" alt="Knowledge Base Theme">
 					</a> <span class="tag-line">在线学习平台</span>
 				</div>
 
@@ -42,13 +41,13 @@
 				<nav class="main-nav">
 					<div class="menu-top-menu-container">
 						<ul id="menu-top-menu" class="clearfix">
-							<li><a href="#">首页</a></li>
-							<li><a href="#">学生管理</a></li>
-							<li><a href="#">老师管理</a></li>
+							<li><a href="/admin/index">首页</a></li>
+							<li><a href="/admin/stus">学生管理</a></li>
+							<li><a href="/admin/teachs">老师管理</a></li>
 							<li><a href="#">管理员姓名</a>
 								<ul class="sub-menu">
 									<li><a href="blue-skin.html">信息设置</a></li>
-									<li><a href="green-skin.html">退出</a></li>
+									<li><a href="/logout">退出</a></li>
 								</ul></li>
 						</ul>
 					</div>
@@ -72,7 +71,7 @@
 
 					<article class=" page type-page hentry clearfix">
 						<h1 class="post-title">
-							<a href="#">学生管理</a><a href="#" class="btn btn-large">添加学生</a>
+							<a href="#">学生管理</a><a href="/admin/addStu" class="btn btn-large">添加学生</a>
 						</h1>
 						<hr>
 						<p>学生检索管理模块</p>
@@ -84,7 +83,7 @@
 
 							<div class="row-fluid search-forms search-default">
 
-								<form class="form-search" action="#">
+								<form class="form-search" action="#" method="post">
 
 									<div class="chat-form">
 
@@ -97,11 +96,11 @@
 
 												<div class="controls">
 
-													<select class="m-wrap span12">
+													<select class="m-wrap span12" name="colleage">
+														<option value="">请选择</option>
+														<option value="教育技术学院">教育技术学院</option>
 
-														<option value="">教育技术学院</option>
-
-														<option value="">心理院</option>
+														<option value="心理院">心理院</option>
 
 													</select>
 
@@ -115,11 +114,11 @@
 
 												<div class="controls">
 
-													<select class="m-wrap span12">
+													<select class="m-wrap span12" name="specialty">
+														<option value="">请选择</option>
+														<option value="教育学">教育学</option>
 
-														<option value="">教育学</option>
-
-														<option value="">计算机学</option>
+														<option value="计算机学">计算机学</option>
 
 													</select>
 
@@ -129,9 +128,10 @@
 											<div class="control-group">
 												<label class="control-label">学号</label>
 											</div>
-											<input type="text" placeholder="学号" class="m-wrap">
-											<button type="button" class="btn green float-right">
-												Search &nbsp; <i class="m-icon-swapright m-icon-white"></i>
+											<input name="stuId" type="text" placeholder="学号"
+												class="m-wrap">
+											<button type="submit" class="btn green float-right">
+												查询 &nbsp; <i class="m-icon-swapright m-icon-white"></i>
 											</button>
 										</div>
 
@@ -168,22 +168,28 @@
 									</thead>
 
 									<tbody>
-
+										<#if stus?exists><#list stus as stu>
 										<tr>
 
-											<td><a href="#">刘涛</a></td>
+											<td><a href="#">${stu['name']}</a></td>
 
-											<td class="hidden-phone">教科院</td>
+											<td class="hidden-phone">${stu['department']}</td>
 
-											<td>教育技术专业</span></td>
+											<td>${stu['speciality']}</span></td>
 
-											<td>04090204</td>
+											<td>${stu['id']}</td>
 
-											<td><a class="btn mini green-stripe" href="#">查看</a> <a
-												class="btn mini green-stripe" href="#">编辑</a> <a
-												class="btn mini green-stripe" href="#">删除</a></td>
+											<td><a class="btn mini green-stripe"
+												href="/admin/stus/${stu['id']}">查看</a> <a
+												class="btn mini green-stripe"
+												href="/admin/stus/${stu['id']}/delete">删除</a></td>
 
 										</tr>
+										</#list> <#else>
+										<tr>
+											<td colspan="5"><a href="#">还未添加任何学生</a></td>
+										</tr>
+										</#if>
 									</tbody>
 								</table>
 

@@ -118,7 +118,6 @@
         </property> -->
         <property name="filterChainDefinitions">
             <value>
-            	/ = anon
                 /favicon.ico = anon
                 /static/** = anon
                 /submit = anon

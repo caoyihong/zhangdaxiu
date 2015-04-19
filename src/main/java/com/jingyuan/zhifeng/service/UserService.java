@@ -1,5 +1,8 @@
 package com.jingyuan.zhifeng.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.jingyuan.zhifeng.entity.Student;
 import com.jingyuan.zhifeng.entity.SysAdmin;
 import com.jingyuan.zhifeng.entity.Teacher;
@@ -57,4 +60,36 @@ public interface UserService {
 	 * @param adminId
 	 */
 	public void deleteAdmin(Integer adminId);
+	
+	/**
+	 * 根据姓名查询学生
+	 * @param name
+	 * @return
+	 */
+	public Student findStuByName(String name);
+	
+	/**
+	 * 根据姓名查询老师
+	 * @param name
+	 * @return
+	 */
+	public Teacher findTeachByName(String name);
+	
+	/**
+	 * 根据姓名查询管理员
+	 * @param name
+	 * @return
+	 */
+	public SysAdmin findAdminByName(String name);
+	
+	/**
+	 * 根据学院、专业、学号查询学生
+	 * @param colleage
+	 * @param specialty
+	 * @param stuId
+	 * @return
+	 */
+	public List<Map<String, String>> selectStus(String colleage,
+			String specialty, Integer stuId);
+
 }

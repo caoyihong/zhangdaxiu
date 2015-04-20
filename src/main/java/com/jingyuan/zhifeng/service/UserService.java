@@ -91,5 +91,18 @@ public interface UserService {
 	 */
 	public List<Map<String, String>> selectStus(String colleage,
 			String specialty, Integer stuId);
+	
+	/**
+	 * 根据学生编号查询学生
+	 * @param stuId
+	 * @return
+	 */
+	public Student selectStuByKey(Integer stuId);
+	
+	/**
+	 * 根据学生学号删除学生
+	 * @param stuId
+	 */
+	public void deleteStudent(Integer stuId);
 
 }

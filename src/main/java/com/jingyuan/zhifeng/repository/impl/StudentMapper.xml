@@ -7,11 +7,12 @@
 		<result column="classid" property="classid" jdbcType="INTEGER" />
 		<result column="sex" property="sex" jdbcType="TINYINT" />
 		<result column="startyear" property="startyear" jdbcType="INTEGER" />
-		<result column="pass" property="pass" jdbcType="VARCHAR" />
+		<result column="pass" property="password" jdbcType="VARCHAR" />
 		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<association property="classBean" column="classid" select="com.jingyuan.zhifeng.repository.ClassMapper.selectByPrimaryKey"></association>
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, name, classid, sex, startyear, pass, salt
+		id, name, classid, sex, startyear, password, salt
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -26,11 +27,11 @@
 	</delete>
 	<insert id="insert" parameterType="com.jingyuan.zhifeng.entity.Student">
 		insert into student (id, name, classid,
-		sex, startyear, pass,
+		sex, startyear, password,
 		salt)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
 		#{classid,jdbcType=INTEGER},
-		#{sex,jdbcType=TINYINT}, #{startyear,jdbcType=INTEGER}, #{pass,jdbcType=VARCHAR},
+		#{sex,jdbcType=TINYINT}, #{startyear,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
 		#{salt,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.jingyuan.zhifeng.entity.Student">
@@ -52,7 +53,7 @@
 				startyear,
 			</if>
 			<if test="pass != null">
-				pass,
+				password,
 			</if>
 			<if test="salt != null">
 				salt,
@@ -75,7 +76,7 @@
 				#{startyear,jdbcType=INTEGER},
 			</if>
 			<if test="pass != null">
-				#{pass,jdbcType=VARCHAR},
+				#{password,jdbcType=VARCHAR},
 			</if>
 			<if test="salt != null">
 				#{salt,jdbcType=VARCHAR},
@@ -98,7 +99,7 @@
 				startyear = #{startyear,jdbcType=INTEGER},
 			</if>
 			<if test="pass != null">
-				pass = #{pass,jdbcType=VARCHAR},
+				password = #{password,jdbcType=VARCHAR},
 			</if>
 			<if test="salt != null">
 				salt = #{salt,jdbcType=VARCHAR},
@@ -112,7 +113,7 @@
 		classid = #{classid,jdbcType=INTEGER},
 		sex = #{sex,jdbcType=TINYINT},
 		startyear = #{startyear,jdbcType=INTEGER},
-		pass = #{pass,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
 		salt = #{salt,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>

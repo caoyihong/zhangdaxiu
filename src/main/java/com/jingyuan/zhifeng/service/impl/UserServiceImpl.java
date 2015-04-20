@@ -1,5 +1,9 @@
 package com.jingyuan.zhifeng.service.impl;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -42,13 +46,51 @@ public class UserServiceImpl implements UserService{
 	public Object isExistUser(String name, String pass, int type) {
 		
 		Object user = null;
+		String password = null;
+		String credentialsSalt = null;
 		switch(type)
 		{
-		case 0 : user = isExistStuWithNameAndPass(name,pass);
-		case 1 : user = isExistTeachWithNameAndPass(name,pass);
-		case 2 : user = isExistAdminWithNameAndPass(name,pass);
+		case 0 : user = findStuByName(name);
+		case 1 : user = findTeachByName(name);
+		case 2 : user = findAdminByName(name);
 		}
-		return user;
+//		如果用户存在则比对密码
+		if(user != null)
+		{
+			try {
+				PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(user.getClass())
+				        .getPropertyDescriptors();
+				for(PropertyDescriptor property : propertyDescriptors)
+				{
+					if ("password".equals(property.getName())) 
+					{
+			            Method writer = property.getReadMethod();
+			            password = (String)writer.invoke(user, new Object[]{});
+			            break;
+					}
+				}
+				for(Method method_ : user.getClass().getMethods())
+				{
+					if(method_.getName().equals("getCredentialsSalt"))
+					{
+						credentialsSalt = (String)method_.invoke(user, new Object[]{});
+						break;
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			credentialsSalt = Optional.of(credentialsSalt).get();
+			if(Optional.of(password).get().equals(new SimpleHash(
+	                "md5",
+	                pass,
+	                ByteSource.Util.bytes(credentialsSalt),
+	                2).toHex()))
+			{
+				return user;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -57,7 +99,7 @@ public class UserServiceImpl implements UserService{
 		Student stu = findStuByName(name);
 		if(stu != null)
 		{
-			if(stu.getPass().equals(new SimpleHash(
+			if(stu.getPassword().equals(new SimpleHash(
 	                "md5",
 	                pass,
 	                ByteSource.Util.bytes(stu.getCredentialsSalt()),
@@ -169,6 +211,18 @@ public class UserServiceImpl implements UserService{
 			String specialty, Integer stuId) {
 		
 		return studentMapper.selectStus(colleage,specialty, stuId);
+	}
+
+	@Override
+	public Student selectStuByKey(Integer stuId) {
+		
+		return studentMapper.selectByPrimaryKey(stuId);
+	}
+
+	@Override
+	public void deleteStudent(Integer stuId) {
+		
+		studentMapper.deleteByPrimaryKey(stuId);
 	}
 
 }

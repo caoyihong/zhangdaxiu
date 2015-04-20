@@ -9,11 +9,16 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.base.Objects;
+import com.google.common.collect.ComparisonChain;
+import com.jingyuan.zhifeng.entity.Student;
 import com.jingyuan.zhifeng.service.UserService;
 
 /**
@@ -54,9 +59,9 @@ public class AdminController {
 			@RequestParam(required = false) Integer stuId) {
 
 		// 检索出学生列表
-		List<Map<String, String>> stus = userService.selectStus(
-				("".equals(colleage) ? null : colleage), ("".equals(specialty) ? null
-						: specialty), stuId);
+		List<Map<String, String>> stus = userService.selectStus((""
+				.equals(colleage) ? null : colleage),
+				("".equals(specialty) ? null : specialty), stuId);
 		request.setAttribute("stus", stus);
 		return "admin/stuControl";
 	}
@@ -68,8 +73,11 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("/stus/{stuId}")
-	public String viewStu(HttpServletRequest request) {
+	public String viewStu(HttpServletRequest request,
+			@PathVariable Integer stuId) {
 
+		Student stu = userService.selectStuByKey(stuId);
+		request.setAttribute("stu", stu);
 		return "admin/stuControl";
 	}
 
@@ -80,8 +88,21 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/stus/{stuId}", method = RequestMethod.POST)
-	public String updateStu(HttpServletRequest request) {
+	public String updateStu(HttpServletRequest request,
+			@PathVariable Integer stuId, @ModelAttribute Student student) {
 
+		// 判断是否有属性修改过
+		Student stu = userService.selectStuByKey(stuId);
+		if (!(Objects.equal(stu.getSex(), student.getSex())
+				&& Objects.equal(stu.getName(), student.getName())
+				&& Objects.equal(stu.getClassBean().getDepartment(), student
+						.getClassBean().getDepartment())
+				&& Objects.equal(stu.getStartyear(), student.getStartyear()) && Objects
+					.equal(stu.getClassBean().getSpeciality(), student
+							.getClassBean().getSpeciality()))) {
+			// 更新用户信息。
+
+		}
 		return "admin/stuControl";
 	}
 
@@ -93,8 +114,9 @@ public class AdminController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/stus/{stuId}/delete", method = RequestMethod.POST)
-	public String deleteStu(HttpServletRequest request) {
+	public String deleteStu(HttpServletRequest request,@PathVariable Integer stuId) {
 
+		userService.deleteStudent(stuId);
 		return "admin/stuControl";
 	}
 

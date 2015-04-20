@@ -39,11 +39,11 @@ public class PasswordHelper {
 //		根据明文密码、身份认证盐、加密算法、加密次数来算出加密的密码，与CredentialMatcher一致
         String newPassword = new SimpleHash(
                 algorithmName,
-                stu.getPass(),
+                stu.getPassword(),
                 ByteSource.Util.bytes(stu.getCredentialsSalt()),
                 hashIterations).toHex();
 
-        stu.setPass(newPassword);
+        stu.setPassword(newPassword);
     }
     
     /**

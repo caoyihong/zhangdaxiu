@@ -83,7 +83,7 @@ public class UserRealm extends AuthorizingRealm{
 			student = (Student)user;
 			authenticationInfo = new SimpleAuthenticationInfo(
 					new ShiroUser(student.getId(),student.getName(),UserType.STUDENT.getType()),
-					student.getPass(),
+					student.getPassword(),
 					ByteSource.Util.bytes(student.getCredentialsSalt()),
 					getName()
 					);

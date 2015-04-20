@@ -7,21 +7,31 @@ public class Student {
 
     private Integer classid;
 
-    private Byte sex;
+    private int sex;
 
     private Integer startyear;
 
-    private String pass;
+    private String password;
 
     private String salt;
 
-    public Student(String name, String pass) {
+    private Class classBean;
+    
+    public Student(String name, String password) {
 		this.name = name;
-		this.pass = pass;
+		this.password = password;
 	}
 
 	public Student() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Student(String name, String password, int classId,int sex,int startyear) {
+		this.name = name;
+		this.password = password;
+		this.classid = classid;
+		this.sex = sex;
+		this.startyear = startyear;
 	}
 
 	public Integer getId() {
@@ -48,11 +58,11 @@ public class Student {
         this.classid = classid;
     }
 
-    public Byte getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -64,12 +74,12 @@ public class Student {
         this.startyear = startyear;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass == null ? null : pass.trim();
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getSalt() {
@@ -88,4 +98,20 @@ public class Student {
 	{
 		return name + salt;
 	}
+
+	/**
+	 * @return the classBean
+	 */
+	public Class getClassBean() {
+		return classBean;
+	}
+
+	/**
+	 * @param classBean the classBean to set
+	 */
+	public void setClassBean(Class classBean) {
+		this.classBean = classBean;
+	}
+	
+	
 }
